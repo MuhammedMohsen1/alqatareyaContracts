@@ -16,6 +16,7 @@ class AppColors {
   static const greenLight = Color(0xFFE0FBD7);
   static const greenDark = Color(0xFF51A931);
   static const kashmeer = Color(0xFFB69F9F);
+  static const borderDataTable = Color(0xFFEADEDE);
 
   static const _white = Colors.white;
   static const whiteGrey = Color(0xFFE6E6E6);

@@ -13,13 +13,13 @@ class Styles {
     color: AppColors.fontBlack,
     fontSize: 12,
     fontFamily: 'ITHRA',
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
   static TextStyle style14 = const TextStyle(
     color: AppColors.fontBlack,
     fontSize: 14,
     fontFamily: 'ITHRA',
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
   static TextStyle style15 = const TextStyle(
     color: AppColors.fontBlack,

@@ -1,50 +1,58 @@
+import 'package:alqatareyacontracts/core/utils/colors.dart';
+import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
+      required this.onTap,
     required this.title,
-    required this.onPressed,
-    required this.color,
-    this.textColor,
-    this.borderColor,
-    this.borderRadius,
+      this.icon,
+      this.height,
       this.width,
-      this.height
+      this.titleStyle
+    
   });
+  final Function() onTap;
   final String title;
-  final void Function() onPressed;
-  final Color color;
-  final Color? textColor;
-  final Color? borderColor;
-  final double? borderRadius;
+  final Icon? icon;
   final double? width;
   final double? height;
+  final TextStyle? titleStyle;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(
-
-            borderRadius: BorderRadius.circular(borderRadius ?? 7.sp),
-            side: BorderSide(color: borderColor ?? Colors.transparent)),
-        padding: EdgeInsets.symmetric(vertical: 15.h),
-        
-        minimumSize: Size(
-            width ?? double.infinity, height ?? 0), // Set width to infinity
-      ),
-      onPressed: onPressed,
-      child: Text(
-        title,
-        softWrap: true,
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-        style: Styles.style14
-            .copyWith(fontWeight: FontWeight.bold, color: textColor),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(6.sp),
+      child: Container(
+        width: width ?? 200.w,
+        height: height ?? 60.h,
+        decoration: BoxDecoration(
+            gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.enabyDark, AppColors.enabyLight]),
+            borderRadius: BorderRadius.circular(6.sp)),
+        child: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+              
+            Text(
+              title,
+              style:
+                  titleStyle ?? Styles.style18.copyWith(color: AppColors.white),
+            ),
+            if (icon != null) ...[
+              SizedBox(
+                width: 12.w,
+              ),
+              icon!,
+            ],
+          ],
+        )),
       ),
     );
   }

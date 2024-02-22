@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alqatareyacontracts/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,13 @@ class AppRouter {
     switch (settings.name) {
       case Routes.splashScreen:
         return _getPageRoute(
-          SplashScreen(),
+          const SplashScreen(),
         );
 
       case Routes.login:
-        return _getPageRoute(LoginView());
+        return _getPageRoute(const LoginView());
+      case Routes.dashboard:
+        return _getPageRoute(const DashboardView());
     }
     return null;
   }

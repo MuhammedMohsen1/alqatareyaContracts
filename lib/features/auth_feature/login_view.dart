@@ -1,9 +1,11 @@
+import 'package:alqatareyacontracts/core/routing/routes.dart';
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/widgets/custom_button.dart';
 import 'widgets/form_input_password.dart';
 import 'widgets/form_input_text.dart';
 
@@ -44,12 +46,7 @@ class LoginView extends StatelessWidget {
                           topLeft: Radius.circular(57.sp),
                           topRight: Radius.circular(57.sp),
                         ),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 3,
-                              spreadRadius: 3),
-                        ]),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -79,28 +76,11 @@ class LoginView extends StatelessWidget {
                         SizedBox(
                           height: 40.h,
                         ),
-                        InkWell(
-                          onTap: () {},
-                          borderRadius: BorderRadius.circular(6.sp),
-                          child: Container(
-                            width: 200.w,
-                            height: 60.h,
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      AppColors.enabyDark,
-                                      AppColors.enabyLight
-                                    ]),
-                                borderRadius: BorderRadius.circular(6.sp)),
-                            child: Center(
-                                child: Text(
-                              'دخول',
-                              style: Styles.style18
-                                  .copyWith(color: AppColors.white),
-                            )),
-                          ),
+                        CustomButton(
+                          title: 'دخول',
+                          onTap: () {
+                            context.pushAndRemove(Routes.dashboard);
+                          },
                         ),
                       ],
                     ),
