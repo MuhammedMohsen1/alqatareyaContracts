@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alqatareyacontracts/features/create_contract/presentation/views/create_contract.dart';
 import 'package:alqatareyacontracts/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class AppRouter {
       case Routes.login:
         return _getPageRoute(const LoginView());
       case Routes.dashboard:
-        return _getPageRoute(const DashboardView());
+        return _getPageRoute(const DashboardView()); 
+      case Routes.createContract:
+        return _getPageRoute(const CreateContract());
     }
     return null;
   }

@@ -12,18 +12,20 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(17.sp),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const TitleDataTable(),
-            SizedBox(
-              height: 22.h,
-            ),
-            CustomDataTable(),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.all(17.sp),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const TitleDataTable(),
+              SizedBox(
+                height: 22.h,
+              ),
+              const CustomDataTable(),
+            ],
+          ),
         ),
       ),
     );

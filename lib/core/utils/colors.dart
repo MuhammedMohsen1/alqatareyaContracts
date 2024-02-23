@@ -14,7 +14,9 @@ class AppColors {
   static const redLight = Color(0xFFF5B7B7);
   static const redDark = Color(0xFFFF0000);
   static const greenLight = Color(0xFFE0FBD7);
-  static const greenDark = Color(0xFF51A931);
+  static const greenDark = Color(0xFF51A931);  
+  static const yellowLight = Color(0xFFF8DFB2);
+  static const yellowDark = Color(0xFF9D6500);
   static const kashmeer = Color(0xFFB69F9F);
   static const borderDataTable = Color(0xFFEADEDE);
 

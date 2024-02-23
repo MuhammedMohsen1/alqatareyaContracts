@@ -3,8 +3,8 @@ import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FinishedStatusWidget extends StatelessWidget {
-  const FinishedStatusWidget({
+class NotStartedStatusWidget extends StatelessWidget {
+  const NotStartedStatusWidget({
     super.key,
   });
 
@@ -15,14 +15,14 @@ class FinishedStatusWidget extends StatelessWidget {
       child: Center(
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.greenLight,
+            color: AppColors.redLight,
             borderRadius: BorderRadius.circular(6.r),
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 4.h),
-            child: Text('اكتمل',
+            child: Text('لم يبدأ',
                 textAlign: TextAlign.center,
-                style: Styles.style12.copyWith(color: AppColors.greenDark)),
+                style: Styles.style12.copyWith(color: AppColors.redDark)),
           ),
         ),
       ),
