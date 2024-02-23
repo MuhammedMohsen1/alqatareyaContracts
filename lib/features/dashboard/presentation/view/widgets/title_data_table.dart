@@ -36,7 +36,7 @@ class TitleDataTable extends StatelessWidget {
         IconButton(
             onPressed: () {},
             icon: const Icon(
-              Ionicons.options,
+              Ionicons.filter,
               color: AppColors.enabyDark,
             )),
         const Spacer(),

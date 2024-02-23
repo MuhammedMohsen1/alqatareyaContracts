@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth_feature/login_view.dart';
+import '../../features/contract_details.dart/presentation/views/contract_details.dart';
 import '../../features/splash_feature/splash_screen.dart';
 
 import 'routes.dart';
@@ -27,7 +28,9 @@ class AppRouter {
       case Routes.dashboard:
         return _getPageRoute(const DashboardView()); 
       case Routes.createContract:
-        return _getPageRoute(const CreateContract());
+        return _getPageRoute(const CreateContract());    
+      case Routes.contractDetails:
+        return _getPageRoute(const ContractDetailsView());
     }
     return null;
   }

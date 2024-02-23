@@ -1,10 +1,15 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
+import 'package:alqatareyacontracts/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
+import '../../../../core/utils/theme.dart';
+import 'widgets/custom_date_time_picker.dart';
+import 'widgets/drop_down_contract_widget.dart';
 import 'widgets/form_create_contract_form.dart';
 
 class CreateContract extends StatelessWidget {
@@ -79,12 +84,7 @@ class CreateContract extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              SizedBox(
-                width: 150.w,
-                child: const FormCreateContractForm(
-                  title: '',
-                ),
-              ),
+              CustomDateTimePicker(),
               SizedBox(
                 height: 10.h,
               ),
@@ -95,12 +95,28 @@ class CreateContract extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              SizedBox(
-                width: 245.w,
-                child: const FormCreateContractForm(
-                  title: '',
-                ),
+              DropDownContractWidget(
+                onTap: (p0) {},
+                items: const [
+                  'طربال ديرمابت',
+                  'رش امريكى',
+                  'طربال + ايزو فوم',
+                  'طربال + رش',
+                ],
               ),
+              SizedBox(
+                height: 100.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: CustomButton(
+                    width: 150.w,
+                    height: 50.h,
+                    titleStyle: Styles.style15.copyWith(color: Colors.white
+                    ),
+                    onTap: () {},
+                    title: 'حفظ'),
+              )
             ],
           ),
         ),

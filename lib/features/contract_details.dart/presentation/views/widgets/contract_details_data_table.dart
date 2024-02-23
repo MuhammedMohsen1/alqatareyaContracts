@@ -3,12 +3,13 @@ import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../../../../../core/routing/routes.dart';
-import 'status_widget.dart';
+import 'custom_check_box.dart';
 
-class CustomDataTable extends StatelessWidget {
-  const CustomDataTable({
+class ContractDetailsDataTable extends StatelessWidget {
+  const ContractDetailsDataTable({
     super.key,
   });
 
@@ -50,23 +51,6 @@ class CustomDataTable extends StatelessWidget {
                   getTableRow(context),
                   getTableRow(context),
                   getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
                 ],
               ),
             ),
@@ -85,13 +69,13 @@ class CustomDataTable extends StatelessWidget {
     return TableRow(children: [
       Padding(
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-        child: Text('عقد',
+        child: Text('العمل',
             textAlign: TextAlign.center,
             style: Styles.style12.copyWith(fontWeight: FontWeight.bold)),
       ),
       Padding(
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-        child: Text('حالة',
+        child: Text('تم',
             textAlign: TextAlign.center,
             style: Styles.style12.copyWith(fontWeight: FontWeight.bold)),
       ),
@@ -131,18 +115,16 @@ class CustomDataTable extends StatelessWidget {
             vertical: 12.h,
             horizontal: 4.w,
           ),
-          child: Text('الفروانية',
+          child: Text('نظافة و معالجة',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Styles.style12),
         ),
       ),
-      GestureDetector(
-          onTap: () {
-            _onTap(context);
-          },
-          child: const FinishedStatusWidget()),
+      CustomCheckBox(
+        value: false,
+      ),
       GestureDetector(
         onTap: () {
           _onTap(context);
