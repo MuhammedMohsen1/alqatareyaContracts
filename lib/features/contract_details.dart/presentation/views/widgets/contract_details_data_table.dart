@@ -3,8 +3,6 @@ import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ionicons/ionicons.dart';
-
 import '../../../../../core/routing/routes.dart';
 import 'custom_check_box.dart';
 
@@ -15,48 +13,44 @@ class ContractDetailsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: [
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  border:
-                      Border.all(color: AppColors.borderDataTable, width: 1)),
-              child: Table(
-                border: const TableBorder(
-                  horizontalInside: BorderSide(
-                    color: AppColors.borderDataTable,
-                    width: 0.8,
-                  ),
+    return ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      children: [
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(color: AppColors.borderDataTable, width: 1)),
+            child: Table(
+              border: const TableBorder(
+                horizontalInside: BorderSide(
+                  color: AppColors.borderDataTable,
+                  width: 0.8,
                 ),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                columnWidths: const {
-                  4: FlexColumnWidth(2),
-                  3: FlexColumnWidth(0.5),
-                },
-                children: [
-                  getTitleTableRow(),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                ],
               ),
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              columnWidths: const {
+                4: FlexColumnWidth(2),
+                3: FlexColumnWidth(0.5),
+              },
+              children: [
+                getTitleTableRow(),
+                getTableRow(context),
+                getTableRow(context),
+                getTableRow(context),
+                getTableRow(context),
+                getTableRow(context),
+                getTableRow(context),
+                getTableRow(context),
+                getTableRow(context),
+             
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

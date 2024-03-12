@@ -1,14 +1,9 @@
-import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
+import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ionicons/ionicons.dart';
 
-import '../../../../core/routing/routes.dart';
-import '../../../../core/utils/colors.dart';
-import '../../../../core/utils/styles.dart';
-import '../../../../core/widgets/custom_button.dart';
-
-import 'widgets/contract_details_data_table.dart';
+import '../../../create_contract/presentation/views/widgets/create_form_header.dart';
+import 'widgets/contract_table_details_with_title.dart';
 
 class ContractDetailsView extends StatelessWidget {
   const ContractDetailsView({super.key});
@@ -19,22 +14,70 @@ class ContractDetailsView extends StatelessWidget {
       child: Scaffold(
         body: Padding(
           padding: EdgeInsets.all(17.sp),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
             children: [
-              Row(
+              const CreateFormHeader(),
+              GridView.count(
+                shrinkWrap: true,
+                padding: EdgeInsets.all(10.0),
+                physics: NeverScrollableScrollPhysics(),
+                childAspectRatio: 16.h,
+                crossAxisCount: 2,
                 children: [
-                  const Spacer(),
-                  Text(
-                    'الأعمال',
-                    style: Styles.style20.copyWith(color: Colors.black),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('182'),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(':مسطح الاسطح و الملاحق'),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('182'),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(':رقم القسيمة'),
+                    ],
+                  ),
+                
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('الجهراء'),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(':العنوان'),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('محمد محسن'),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(':اسم العميل'),
+                    ],
                   ),
                 ],
               ),
-              SizedBox(
-                height: 22.h,
+              ContractTableDetailsWithTitle(
+                title: 'الأسطح و الملاحق',
               ),
-              const ContractDetailsDataTable(),
+              ContractTableDetailsWithTitle(
+                title: 'الحمامات والمطابخ',
+              ),
+              ContractTableDetailsWithTitle(
+                title: 'الأعمال الاضافية',
+              ),
             ],
           ),
         ),

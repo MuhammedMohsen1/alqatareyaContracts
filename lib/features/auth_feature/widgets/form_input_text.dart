@@ -1,7 +1,5 @@
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../core/utils/strings.dart';
 import '../../../core/utils/styles.dart';
 
 class FormInputText extends StatefulWidget {
@@ -30,7 +28,7 @@ class _FormInputTextState extends State<FormInputText> {
           color: const Color(0xFF6A6A6A),
         ),
         controller: controller,
-        validator: widget.validator ?? (value) {},
+        validator: widget.validator,
         cursorColor: Colors.black,
         decoration: InputDecoration(
           isDense: true,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 enum ToastType { error, warning, info }
 
 void showToast(String message, ToastType type) {
+  // ignore: unused_local_variable
   Color backgroundColor;
   switch (type) {
     case ToastType.error:

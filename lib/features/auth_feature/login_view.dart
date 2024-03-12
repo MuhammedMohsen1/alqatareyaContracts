@@ -1,7 +1,6 @@
 import 'package:alqatareyacontracts/core/routing/routes.dart';
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
-import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +13,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("HELLO WORLD");
+   
     return Scaffold(
       body: Stack(
         children: [

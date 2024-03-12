@@ -6,10 +6,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 class CustomDateTimePicker extends StatelessWidget {
-  const CustomDateTimePicker({
-    super.key,
-  });
-
+  const CustomDateTimePicker({super.key, this.onSave});
+  final Function(DateTime? time)? onSave;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -38,6 +36,9 @@ class CustomDateTimePicker extends StatelessWidget {
                   ),
                   firstDate: DateTime.now().subtract(const Duration(days: 14)),
                   lastDate: DateTime.now().add(const Duration(days: 14)));
+              if (onSave != null) {
+                onSave!(dateTime);
+              }
             },
             icon: Icon(
               Ionicons.calendar_number_outline,

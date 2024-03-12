@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/injection/di_container.dart';
 import '../../core/routing/router.dart';
+import '../../features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
 import 'enums.dart';
 
 extension MediaQueryExtension on BuildContext {
@@ -86,10 +88,9 @@ extension WidthExtension on num {
 
 // For Using context.layoutCubut directly without providing bloc everytime
 extension ContextExtensions on BuildContext {
-  // LayoutCubit layoutCubit() {
-  //   // manager layout cubit
-  //   return read<LayoutCubit>();
-  // }
+  CreateFormCubit createFormCubit() {
+    return read<CreateFormCubit>();
+  }
   // OnBoardingCubit onBoardingCubit() {
   //   // manager layout cubit
   //   return read<OnBoardingCubit>();

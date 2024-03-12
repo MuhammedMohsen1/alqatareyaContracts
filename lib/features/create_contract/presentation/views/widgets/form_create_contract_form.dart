@@ -10,8 +10,10 @@ class FormCreateContractForm extends StatefulWidget {
     required this.title,
     this.onSave,
     this.validator,
+    this.maxLine,
   });
   final String title;
+  final int? maxLine;
   final Function(String? value)? onSave;
   final String? Function(String?)? validator;
 
@@ -30,6 +32,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
           color: Colors.black,
         ),
         controller: controller,
+        maxLines: widget.maxLine ?? 1,
         validator: widget.validator ?? (value) {},
         cursorColor: Colors.black,
         decoration: InputDecoration(
@@ -44,6 +47,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
           errorStyle: Styles.style14.copyWith(
             color: Colors.red,
           ),
+        
           focusedErrorBorder: _border(),
           errorBorder: _border(),
           focusedBorder: _border(),

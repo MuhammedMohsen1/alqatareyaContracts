@@ -1,8 +1,6 @@
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../core/utils/strings.dart';
 import '../../../core/utils/styles.dart';
 
 class FormInputPassword extends StatefulWidget {
@@ -36,7 +34,7 @@ class _FormInputPasswordState extends State<FormInputPassword> {
               color: const Color(0xFF6A6A6A),
             ),
             controller: controller,
-            validator: widget.validator ?? (value) {},
+            validator: widget.validator,
             cursorColor: Colors.black,
             decoration: InputDecoration(
                 isDense: true,
