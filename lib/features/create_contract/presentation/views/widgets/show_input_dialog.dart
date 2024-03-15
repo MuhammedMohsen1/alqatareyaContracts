@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'create_form_dialog_button.dart';
 
 showInputDialog(BuildContext context, String title, int maxlines,
-    Function(String?)? onSaveValue) async {
+    Function(String?)? onSaveValue, content) async {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   return await showDialog(
@@ -29,6 +29,7 @@ showInputDialog(BuildContext context, String title, int maxlines,
                       onSaveValue(value);
                     }
                   },
+                  content: content,
                 ),
               ],
             ),

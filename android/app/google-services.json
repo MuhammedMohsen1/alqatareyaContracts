@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291340568369",
+    "project_id": "alqatareyacontracts",
+    "storage_bucket": "alqatareyacontracts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291340568369:android:7eedc2f06ac0da0177d210",
+        "android_client_info": {
+          "package_name": "com.example.alqatareyacontracts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxSUMmhxIBXW3WuzcvQ9RbLhTaq7mztoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

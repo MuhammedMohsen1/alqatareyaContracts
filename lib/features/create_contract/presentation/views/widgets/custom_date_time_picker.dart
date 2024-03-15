@@ -2,12 +2,22 @@ import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:intl/intl.dart' as intl;
 
-class CustomDateTimePicker extends StatelessWidget {
-  const CustomDateTimePicker({super.key, this.onSave});
+class CustomDateTimePicker extends StatefulWidget {
+  CustomDateTimePicker({super.key, this.onSave});
   final Function(DateTime? time)? onSave;
+
+  @override
+  State<CustomDateTimePicker> createState() => _CustomDateTimePickerState();
+}
+
+class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
+  DateTime? dateTime;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,7 +25,7 @@ class CustomDateTimePicker extends StatelessWidget {
       children: [
         IconButton(
             onPressed: () async {
-              DateTime? dateTime = await showOmniDateTimePicker(
+              dateTime = await showOmniDateTimePicker(
                   context: context,
                   type: OmniDateTimePickerType.date,
                   barrierDismissible: false,
@@ -36,8 +46,9 @@ class CustomDateTimePicker extends StatelessWidget {
                   ),
                   firstDate: DateTime.now().subtract(const Duration(days: 14)),
                   lastDate: DateTime.now().add(const Duration(days: 14)));
-              if (onSave != null) {
-                onSave!(dateTime);
+              setState(() {});
+              if (widget.onSave != null) {
+                widget.onSave!(dateTime);
               }
             },
             icon: Icon(
@@ -59,7 +70,7 @@ class CustomDateTimePicker extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
             child: Text(
-              '12/10/2023',
+              formatDate(dateTime ?? DateTime.now()),
               textAlign: TextAlign.end,
               style: Styles.style14.copyWith(
                 color: Colors.black,
@@ -70,4 +81,13 @@ class CustomDateTimePicker extends StatelessWidget {
       ],
     );
   }
+}
+String formatDate(DateTime dateTime) {
+  // Create a DateFormat object with the desired format
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+
+  // Format the DateTime object using the DateFormat object
+  final String formattedDate = formatter.format(dateTime);
+
+  return formattedDate;
 }

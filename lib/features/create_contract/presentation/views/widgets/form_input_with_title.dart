@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FormInputWithTitle extends StatelessWidget {
-  const FormInputWithTitle({
+  FormInputWithTitle({
     super.key,
     required this.title,
     this.width,
     this.maxLines,
     this.onSave,
+    this.validator,
+    this.content,
   });
   final String title;
   final double? width;
   final int? maxLines;
-  final Function(String?)? onSave;
+  final Function(String?)? onSave;  
+  final String? Function(String? value)? validator;
+  String? content = '';
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,6 +38,8 @@ class FormInputWithTitle extends StatelessWidget {
             title: '',
             maxLine: maxLines,
             onSave: onSave,
+            validator: validator,
+            content: content,
           ),
         ),
       ],

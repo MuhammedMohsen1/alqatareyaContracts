@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAm36o1C64FidLHIBxS-9yy5kCn4ONQ4lM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>291340568369</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.alqatareyacontracts.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>alqatareyacontracts</string>
+	<key>STORAGE_BUCKET</key>
+	<string>alqatareyacontracts.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:291340568369:ios:1206a1173a1f193477d210</string>
+</dict>
+</plist>

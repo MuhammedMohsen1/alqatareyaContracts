@@ -1,28 +1,24 @@
+import 'package:alqatareyacontracts/core/utils/app_constants.dart';
+
 import 'cache_helper.dart';
 import 'cache_keys.dart';
 
 class CacheUtils {
-  static Future<void> setToken(String token) async {
-    await CacheHelper.putData(key: 'token', value: token);
+  static Future<void> setRole(String role) async {
+    await CacheHelper.putData(key: CacheKeys.role, value: role);
+  }
+  static Future<void> deleteRole() async {
+    await CacheHelper.removeValue(key: CacheKeys.role);
   }
 
-  static String? getToken() {
-    return CacheHelper.getData(key: CacheKeys.token);
+  static void login() async {
+    await CacheHelper.putData(key: CacheKeys.isLogin, value: true);
   }
-
-  static Future<void> deleteToken() async {
-    await CacheHelper.removeValue(key: CacheKeys.token);
-  }
-
-  static Future<void> setIsOpenedBefore() async {
-    await CacheHelper.putData(key: CacheKeys.isOpenedBefore, value: true);
-  }
-
-  static bool isOpenedBefore() {
-    return CacheHelper.getData(key: CacheKeys.isOpenedBefore) ?? false;
-  }
-
   static bool isLoggedIn() {
-    return CacheHelper.getData(key: CacheKeys.token) == null ? false : true;
+    return CacheHelper.getData(key: CacheKeys.isLogin) == null ? false : true;
+  }
+
+  static void signOut() async {
+    await CacheHelper.putData(key: CacheKeys.isLogin, value: false);
   }
 }

@@ -26,12 +26,12 @@ class AppRouter {
         );
 
       case Routes.login:
-        return _getPageRoute(const LoginView());
+        return _getPageRoute(LoginView());
       case Routes.dashboard:
         return _getPageRoute(const DashboardView());
       case Routes.createContract:
         return _getPageRoute(BlocProvider(
-          create: (context) => CreateFormCubit(),
+          create: (context) => CreateFormCubit()..fetchStepsInformation(),
           child: CreateContract(),
         ));
       case Routes.contractDetails:

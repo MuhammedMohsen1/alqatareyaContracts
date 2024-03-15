@@ -1,4 +1,5 @@
 class CacheKeys {
-  static const token = 'token';
+  static const role = 'Role';
   static const isOpenedBefore = 'isOpenedBefore';
+  static const isLogin = 'isOpenedBefore';
 }

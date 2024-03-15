@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:alqatareyacontracts/features/auth_feature/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -90,6 +91,9 @@ extension WidthExtension on num {
 extension ContextExtensions on BuildContext {
   CreateFormCubit createFormCubit() {
     return read<CreateFormCubit>();
+  }
+  LoginCubit loginCubit() {
+    return read<LoginCubit>();
   }
   // OnBoardingCubit onBoardingCubit() {
   //   // manager layout cubit

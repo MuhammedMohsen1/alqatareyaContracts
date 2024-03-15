@@ -1,3 +1,5 @@
+import 'package:alqatareyacontracts/features/create_contract/models/form_model/steps_details.dart';
+
 class FormDetails {
   String? contractNo;
   String? voucherNo;
@@ -5,8 +7,9 @@ class FormDetails {
   String? phoneNumber;
   String? address;
   DateTime? createDate;
-  TypeContract? typeOfContract;
+  List<StepsDetails>? roofSteps;
   bool? isThereBaths;
+  List<StepsDetails>? bathsSteps;
   String? noBaths;
   String? bathsDetails;
   String? noCement;
@@ -22,7 +25,7 @@ class FormDetails {
   String? areaSanader;
   String? na3latSanader;
   String? so2otFoom;
-  List<String?>? additionalWork;
+  List<String?>? additionalWorkSteps;
 
   FormDetails({
     this.contractNo,
@@ -31,7 +34,8 @@ class FormDetails {
     this.phoneNumber,
     this.address,
     this.createDate,
-    this.typeOfContract,
+    this.roofSteps,
+    this.bathsSteps,
     this.isThereBaths,
     this.noBaths,
     this.bathsDetails,
@@ -48,7 +52,7 @@ class FormDetails {
     this.areaSanader,
     this.na3latSanader,
     this.so2otFoom,
-    this.additionalWork,
+    this.additionalWorkSteps,
   });
 
   factory FormDetails.initial() {
@@ -59,7 +63,8 @@ class FormDetails {
       phoneNumber: null,
       address: null,
       createDate: null,
-      typeOfContract: null,
+      roofSteps: null,
+      bathsSteps: null,
       isThereBaths: null,
       noBaths: null,
       bathsDetails: null,
@@ -76,7 +81,7 @@ class FormDetails {
       areaSanader: null,
       na3latSanader: null,
       so2otFoom: null,
-      additionalWork: [],
+      additionalWorkSteps: [],
     );
   }
   factory FormDetails.fromMap(Map<String, dynamic> map) {
@@ -88,9 +93,8 @@ class FormDetails {
       address: map['address'],
       createDate:
           map['createDate'] != null ? DateTime.parse(map['createDate']) : null,
-      typeOfContract: map['typeOfContract'] != null
-          ? TypeContract.fromMap(map['typeOfContract'])
-          : null,
+      roofSteps: map['roofSteps'],
+      bathsSteps: map['bathsSteps'],
       isThereBaths: map['isThereBaths'],
       noBaths: map['noBaths'],
       bathsDetails: map['bathsDetails'],
@@ -107,7 +111,7 @@ class FormDetails {
       areaSanader: map['areaSanader'],
       na3latSanader: map['na3latSanader'],
       so2otFoom: map['so2otFoom'],
-      additionalWork: map['additionalWork'] != null
+      additionalWorkSteps: map['additionalWork'] != null
           ? List<String>.from(map['additionalWork'])
           : [],
     );
@@ -120,8 +124,9 @@ class FormDetails {
       'clientName': clientName,
       'phoneNumber': phoneNumber,
       'address': address,
-      'createDate': createDate != null ? createDate!.toIso8601String() : null,
-      'typeOfContract': typeOfContract != null ? typeOfContract!.toMap() : null,
+      'createDate': createDate,
+      'roofSteps': roofSteps?.map((step) => step.toMap()).toList(),
+      'bathsSteps': bathsSteps?.map((step) => step.toMap()).toList(),
       'isThereBaths': isThereBaths,
       'noBaths': noBaths,
       'bathsDetails': bathsDetails,
@@ -138,16 +143,16 @@ class FormDetails {
       'areaSanader': areaSanader,
       'na3latSanader': na3latSanader,
       'so2otFoom': so2otFoom,
-      'additionalWork': additionalWork,
+      'additionalWork': additionalWorkSteps,
     };
   }
 }
 
 class TypeContract {
-  String name;
+  String title;
   List<String> steps;
 
-  TypeContract(this.name, this.steps);
+  TypeContract(this.title, this.steps);
 
   factory TypeContract.fromMap(Map<String, dynamic> map) {
     return TypeContract(
@@ -158,8 +163,7 @@ class TypeContract {
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'steps': steps,
+      title: steps,
     };
   }
 }

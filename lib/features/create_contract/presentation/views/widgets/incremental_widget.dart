@@ -31,7 +31,7 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
             height: 20.h,
           ),
           ...List.generate(
-            context.createFormCubit().form?.additionalWork?.length ?? 0,
+            context.createFormCubit().form?.additionalWorkSteps?.length ?? 0,
             (index) => Container(
               margin: EdgeInsets.symmetric(vertical: 12.h),
               decoration: BoxDecoration(
@@ -48,7 +48,7 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
                           context
                               .createFormCubit()
                               .form!
-                              .additionalWork!
+                              .additionalWorkSteps!
                               .removeAt(index);
                         });
                       },
@@ -62,7 +62,10 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
                       width: 10.w,
                     ),
                     Text(
-                      context.createFormCubit().form!.additionalWork![index]!,
+                      context
+                          .createFormCubit()
+                          .form!
+                          .additionalWorkSteps![index]!,
                       style: Styles.style16,
                     ),
                   ],
@@ -81,9 +84,15 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
                 2,
                 (String? value) {
                   setState(() {
-                    context.createFormCubit().form?.additionalWork?.add(value);
+                    context
+                        .createFormCubit()
+                        .form
+                        ?.additionalWorkSteps
+                        ?.add(value);
                   });
+
                 },
+                '',
               );
             },
             borderRadius: BorderRadius.circular(50.r),

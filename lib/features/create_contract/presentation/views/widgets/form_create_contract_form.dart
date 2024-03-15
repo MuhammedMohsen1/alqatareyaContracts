@@ -11,11 +11,13 @@ class FormCreateContractForm extends StatefulWidget {
     this.onSave,
     this.validator,
     this.maxLine,
+    this.content,
   });
   final String title;
   final int? maxLine;
   final Function(String? value)? onSave;
   final String? Function(String?)? validator;
+  final String? content;
 
   @override
   State<FormCreateContractForm> createState() => _FormCreateContractFormState();
@@ -23,6 +25,12 @@ class FormCreateContractForm extends StatefulWidget {
 
 class _FormCreateContractFormState extends State<FormCreateContractForm> {
   TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    controller.text = widget.content ?? '';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -47,7 +55,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
           errorStyle: Styles.style14.copyWith(
             color: Colors.red,
           ),
-        
+
           focusedErrorBorder: _border(),
           errorBorder: _border(),
           focusedBorder: _border(),

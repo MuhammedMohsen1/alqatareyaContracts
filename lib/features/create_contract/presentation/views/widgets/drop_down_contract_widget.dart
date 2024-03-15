@@ -1,23 +1,25 @@
+import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
+import 'package:alqatareyacontracts/features/create_contract/models/form_model/form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 
+// ignore: must_be_immutable
 class DropDownContractWidget extends StatefulWidget {
   DropDownContractWidget({
     super.key,
-    required this.items,
-    required this.onTap,
+    required this.onTap, required this.items
   });
-  final List<String> items;
-  Function(String) onTap;
+  Function(List<String>) onTap;
+  List<TypeContract> items;
   @override
   State<DropDownContractWidget> createState() => _DropDownContractWidgetState();
 }
 
 class _DropDownContractWidgetState extends State<DropDownContractWidget> {
-  String? value;
+  TypeContract? value;
 
   @override
   Widget build(BuildContext context) {
@@ -31,26 +33,28 @@ class _DropDownContractWidgetState extends State<DropDownContractWidget> {
             borderRadius: BorderRadius.circular(10.r)),
         child: Padding(
           padding: EdgeInsets.all(5.r),
-          child: DropdownButton<String>(
+          child: DropdownButton<TypeContract>(
             borderRadius: BorderRadius.circular(10.r),
 
             isExpanded: true,
             value: value, // Default value
-            onChanged: (String? newValue) {
+            onChanged: (TypeContract? newValue) {
               setState(() {
                 value = newValue;
               });
-              widget.onTap(newValue!);
+              
+              widget.onTap(newValue?.steps ?? []);
             },
-            items: widget.items.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
+            items: widget.items
+                .map<DropdownMenuItem<TypeContract>>((TypeContract value) {
+              return DropdownMenuItem<TypeContract>(
                 value: value,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      value,
+                      value.title,
                       textAlign: TextAlign.end,
                       style: Styles.style16.copyWith(
                         color: Colors.black,
