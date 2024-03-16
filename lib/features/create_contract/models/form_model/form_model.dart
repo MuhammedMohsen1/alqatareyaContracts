@@ -92,9 +92,13 @@ class FormDetails {
       phoneNumber: map['phoneNumber'],
       address: map['address'],
       createDate:
-          map['createDate'] != null ? DateTime.parse(map['createDate']) : null,
-      roofSteps: map['roofSteps'],
-      bathsSteps: map['bathsSteps'],
+          map['createDate'] != null ? map['createDate'].toDate() : null,
+      roofSteps: (map['roofSteps'] as List<dynamic>?)
+          ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
+          .toList(),
+      bathsSteps: (map['bathsSteps'] as List<dynamic>?)
+          ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
+          .toList(),
       isThereBaths: map['isThereBaths'],
       noBaths: map['noBaths'],
       bathsDetails: map['bathsDetails'],

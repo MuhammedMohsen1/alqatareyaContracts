@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/injection/di_container.dart';
 import '../../core/routing/router.dart';
 import '../../features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
+import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'enums.dart';
 
 extension MediaQueryExtension on BuildContext {
@@ -94,6 +95,10 @@ extension ContextExtensions on BuildContext {
   }
   LoginCubit loginCubit() {
     return read<LoginCubit>();
+  }
+
+  DashboardCubit dashboardCubit() {
+    return read<DashboardCubit>();
   }
   // OnBoardingCubit onBoardingCubit() {
   //   // manager layout cubit

@@ -42,9 +42,7 @@ class StepsDetails {
   static StepsDetails fromMap(Map<String, dynamic> map) {
     return StepsDetails(
       stepTitle: map['stepTitle'],
-      date: map['date'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['date'])
-          : null,
+      date: map['date'] != null ? map['date'].toDate() : null,
       isDone: map['isDone'] ?? false,
       notes: map['notes'] != null ? List<String>.from(map['notes']) : null,
     );

@@ -1,9 +1,10 @@
+import 'package:alqatareyacontracts/core/cache/cahce_utils.dart';
 import 'package:alqatareyacontracts/features/auth_feature/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/cache/cache_helper.dart';
@@ -31,6 +32,7 @@ void main() async {
       BlocProvider(
         create: (context) => LoginCubit(),
       ),
+     
     ],
     child: const MyApp(),
   ));
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        initialRoute: Routes.login,
+        initialRoute: CacheUtils.isLoggedIn() ? Routes.dashboard : Routes.login,
         navigatorKey: sl<AppRouter>().navigatorKey,
         onGenerateRoute: sl<AppRouter>().generateRoute,
       ),

@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/auth_feature/login_view.dart';
 import '../../features/contract_details.dart/presentation/views/contract_details.dart';
+import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../features/splash_feature/splash_screen.dart';
 
 import 'routes.dart';
@@ -28,7 +29,10 @@ class AppRouter {
       case Routes.login:
         return _getPageRoute(LoginView());
       case Routes.dashboard:
-        return _getPageRoute(const DashboardView());
+        return _getPageRoute(BlocProvider(
+          create: (context) => DashboardCubit()..loadContracts(),
+          child: const DashboardView(),
+        ));
       case Routes.createContract:
         return _getPageRoute(BlocProvider(
           create: (context) => CreateFormCubit()..fetchStepsInformation(),

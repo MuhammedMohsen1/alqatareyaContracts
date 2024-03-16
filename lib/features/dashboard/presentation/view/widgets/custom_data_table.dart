@@ -1,17 +1,23 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
+import 'package:alqatareyacontracts/features/dashboard/models/dashboard_row_params.dart';
+import 'package:alqatareyacontracts/features/dashboard/presentation/view/widgets/on_going_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/routing/routes.dart';
+import '../../../../shared/methods/formate_date.dart';
+import 'not_started_status_widget.dart';
 import 'status_widget.dart';
 
 class CustomDataTable extends StatelessWidget {
   const CustomDataTable({
     super.key,
   });
-
+  
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -38,35 +44,12 @@ class CustomDataTable extends StatelessWidget {
                 },
                 children: [
                   getTitleTableRow(),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
-                  getTableRow(context),
+                  ...List.generate(
+                    context.dashboardCubit().abstractedContract.length,
+                    (index) => getTableRow(context,
+                        context.dashboardCubit().abstractedContract[index]),
+                  ),
+                  
                 ],
               ),
             ),
@@ -120,7 +103,7 @@ class CustomDataTable extends StatelessWidget {
     ]);
   }
 
-  TableRow getTableRow(BuildContext context) {
+  TableRow getTableRow(BuildContext context, DashboardRowParams params) {
     return TableRow(children: [
       GestureDetector(
         onTap: () {
@@ -131,7 +114,7 @@ class CustomDataTable extends StatelessWidget {
             vertical: 12.h,
             horizontal: 4.w,
           ),
-          child: Text('الفروانية',
+          child: Text(params.contractNum,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -142,14 +125,18 @@ class CustomDataTable extends StatelessWidget {
           onTap: () {
             _onTap(context);
           },
-          child: const FinishedStatusWidget()),
+          child: params.Status == ContractStatus.FINISHED
+              ? const FinishedStatusWidget()
+              : params.Status == ContractStatus.NOTSTARTED
+                  ? const NotStartedStatusWidget()
+                  : const OnGoingStatusWidget()),
       GestureDetector(
         onTap: () {
           _onTap(context);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child: Text('20/10/2023',
+          child: Text(formateDate(params.createdDate) ?? 'فارغ',
               textAlign: TextAlign.center, style: Styles.style12.copyWith()),
         ),
       ),
@@ -160,7 +147,8 @@ class CustomDataTable extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
           child:
-              Text('السبت', textAlign: TextAlign.center, style: Styles.style12),
+              Text(formatDayinArab(params.createdDate) ?? 'فارغ',
+              textAlign: TextAlign.center, style: Styles.style12),
         ),
       ),
       GestureDetector(
@@ -169,7 +157,7 @@ class CustomDataTable extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child: Text('تم صب الفوم لمطبخين',
+          child: Text(params.note,
               textAlign: TextAlign.center, style: Styles.style11),
         ),
       ),

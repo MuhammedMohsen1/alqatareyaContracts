@@ -44,6 +44,7 @@ class CreateFormCubit extends Cubit<CreateFormState> {
       (element.value as List<dynamic>).forEach((localValue) {
         valueList.add(localValue);
       });
+      
       bathstypes!.add(TypeContract(element.key, valueList));
     }
     emit(CreateFormLoadingInitSuccess());
