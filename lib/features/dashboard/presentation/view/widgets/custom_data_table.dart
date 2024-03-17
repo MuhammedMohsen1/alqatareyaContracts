@@ -5,8 +5,7 @@ import 'package:alqatareyacontracts/features/dashboard/models/dashboard_row_para
 import 'package:alqatareyacontracts/features/dashboard/presentation/view/widgets/on_going_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/date_symbol_data_file.dart';
-import 'package:intl/intl.dart' as intl;
+
 
 import '../../../../../core/routing/routes.dart';
 import '../../../../shared/methods/formate_date.dart';
@@ -47,7 +46,8 @@ class CustomDataTable extends StatelessWidget {
                   ...List.generate(
                     context.dashboardCubit().abstractedContract.length,
                     (index) => getTableRow(context,
-                        context.dashboardCubit().abstractedContract[index]),
+                        context.dashboardCubit().abstractedContract[index],
+                        index),
                   ),
                   
                 ],
@@ -59,9 +59,10 @@ class CustomDataTable extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext context) {
+  void _onTap(BuildContext context, int index) {
     'Log'.logPrint();
-    context.push(Routes.contractDetails);
+    context.push(Routes.contractDetails,
+        arg: context.dashboardCubit().contracts[index]);
   }
 
   TableRow getTitleTableRow() {
@@ -103,11 +104,12 @@ class CustomDataTable extends StatelessWidget {
     ]);
   }
 
-  TableRow getTableRow(BuildContext context, DashboardRowParams params) {
+  TableRow getTableRow(
+      BuildContext context, DashboardRowParams params, int index) {
     return TableRow(children: [
       GestureDetector(
         onTap: () {
-          _onTap(context);
+          _onTap(context, index);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -123,7 +125,7 @@ class CustomDataTable extends StatelessWidget {
       ),
       GestureDetector(
           onTap: () {
-            _onTap(context);
+            _onTap(context, index);
           },
           child: params.Status == ContractStatus.FINISHED
               ? const FinishedStatusWidget()
@@ -132,28 +134,28 @@ class CustomDataTable extends StatelessWidget {
                   : const OnGoingStatusWidget()),
       GestureDetector(
         onTap: () {
-          _onTap(context);
+          _onTap(context, index);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child: Text(formateDate(params.createdDate) ?? 'فارغ',
+          child: Text(formateDate(params.createdDate) ?? '-',
               textAlign: TextAlign.center, style: Styles.style12.copyWith()),
         ),
       ),
       GestureDetector(
         onTap: () {
-          _onTap(context);
+          _onTap(context, index);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
           child:
-              Text(formatDayinArab(params.createdDate) ?? 'فارغ',
+              Text(formatDayinArab(params.createdDate) ?? '-',
               textAlign: TextAlign.center, style: Styles.style12),
         ),
       ),
       GestureDetector(
         onTap: () {
-          _onTap(context);
+          _onTap(context, index);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),

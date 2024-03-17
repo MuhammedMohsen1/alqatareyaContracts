@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alqatareyacontracts/features/create_contract/models/form_model/form_model.dart';
 import 'package:alqatareyacontracts/features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
 import 'package:alqatareyacontracts/features/create_contract/presentation/views/create_contract.dart';
 import 'package:alqatareyacontracts/features/dashboard/presentation/view/dashboard_view.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/auth_feature/login_view.dart';
+import '../../features/contract_details.dart/presentation/cubit/contract_details_cubit.dart';
 import '../../features/contract_details.dart/presentation/views/contract_details.dart';
 import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../features/splash_feature/splash_screen.dart';
@@ -39,7 +41,12 @@ class AppRouter {
           child: CreateContract(),
         ));
       case Routes.contractDetails:
-        return _getPageRoute(const ContractDetailsView());
+        FormDetails contract = settings.arguments as FormDetails;
+        return _getPageRoute(BlocProvider(
+          create: (context) =>
+              ContractDetailsCubit()..loadContractDetails(contract),
+          child: const ContractDetailsView(),
+        ));
     }
     return null;
   }

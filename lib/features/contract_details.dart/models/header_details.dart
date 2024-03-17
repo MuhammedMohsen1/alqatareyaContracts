@@ -1,20 +1,14 @@
-import 'package:alqatareyacontracts/features/create_contract/models/form_model/steps_details.dart';
-
-class FormDetails {
+class HeaderDetails {
   String? contractNo;
   String? voucherNo;
   String? clientName;
   String? phoneNumber;
   String? address;
-  DateTime? createDate;
-  List<StepsDetails>? roofSteps;
-  bool? isThereBaths;
-  List<StepsDetails>? bathsSteps;
+
   String? noBaths;
-  String? bathsDetails;
+
   String? noCement;
   String? noTarbal;
-  String? tarbalDetails;
   String? noSecred;
   String? areaRoofs;
   String? na3latRoof;
@@ -25,23 +19,17 @@ class FormDetails {
   String? areaSanader;
   String? na3latSanader;
   String? so2otFoom;
-  List<StepsDetails>? additionalWorkSteps;
+  // List<String?>? additionalWorkSteps;
 
-  FormDetails({
+  HeaderDetails({
     this.contractNo,
     this.voucherNo,
     this.clientName,
     this.phoneNumber,
     this.address,
-    this.createDate,
-    this.roofSteps,
-    this.bathsSteps,
-    this.isThereBaths,
     this.noBaths,
-    this.bathsDetails,
     this.noCement,
     this.noTarbal,
-    this.tarbalDetails,
     this.noSecred,
     this.areaRoofs,
     this.na3latRoof,
@@ -52,25 +40,18 @@ class FormDetails {
     this.areaSanader,
     this.na3latSanader,
     this.so2otFoom,
-    this.additionalWorkSteps,
   });
 
-  factory FormDetails.initial() {
-    return FormDetails(
+  factory HeaderDetails.initial() {
+    return HeaderDetails(
       contractNo: null,
       voucherNo: null,
       clientName: null,
       phoneNumber: null,
       address: null,
-      createDate: null,
-      roofSteps: null,
-      bathsSteps: null,
-      isThereBaths: null,
       noBaths: null,
-      bathsDetails: null,
       noCement: null,
       noTarbal: null,
-      tarbalDetails: null,
       noSecred: null,
       areaRoofs: null,
       na3latRoof: null,
@@ -81,30 +62,18 @@ class FormDetails {
       areaSanader: null,
       na3latSanader: null,
       so2otFoom: null,
-      additionalWorkSteps: [],
     );
   }
-  factory FormDetails.fromMap(Map<String, dynamic> map) {
-    return FormDetails(
+  factory HeaderDetails.fromMap(Map<String, dynamic> map) {
+    return HeaderDetails(
       contractNo: map['contractNo'],
       voucherNo: map['voucherNo'],
       clientName: map['clientName'],
       phoneNumber: map['phoneNumber'],
       address: map['address'],
-      createDate:
-          map['createDate'] != null ? map['createDate'].toDate() : null,
-      roofSteps: (map['roofSteps'] as List<dynamic>?)
-          ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
-          .toList(),
-      bathsSteps: (map['bathsSteps'] as List<dynamic>?)
-          ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
-          .toList(),
-      isThereBaths: map['isThereBaths'],
       noBaths: map['noBaths'],
-      bathsDetails: map['bathsDetails'],
       noCement: map['noCement'],
       noTarbal: map['noTarbal'],
-      tarbalDetails: map['tarbalDetails'],
       noSecred: map['noSecred'],
       areaRoofs: map['areaRoofs'],
       na3latRoof: map['na3latRoof'],
@@ -115,12 +84,6 @@ class FormDetails {
       areaSanader: map['areaSanader'],
       na3latSanader: map['na3latSanader'],
       so2otFoom: map['so2otFoom'],
-
-      
-      additionalWorkSteps: (map['additionalWork'] as List<dynamic>?)
-          ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
-          .toList(),
-          
     );
   }
 
@@ -131,15 +94,9 @@ class FormDetails {
       'clientName': clientName,
       'phoneNumber': phoneNumber,
       'address': address,
-      'createDate': createDate,
-      'roofSteps': roofSteps?.map((step) => step.toMap()).toList(),
-      'bathsSteps': bathsSteps?.map((step) => step.toMap()).toList(),
-      'isThereBaths': isThereBaths,
       'noBaths': noBaths,
-      'bathsDetails': bathsDetails,
       'noCement': noCement,
       'noTarbal': noTarbal,
-      'tarbalDetails': tarbalDetails,
       'noSecred': noSecred,
       'areaRoofs': areaRoofs,
       'na3latRoof': na3latRoof,
@@ -150,28 +107,29 @@ class FormDetails {
       'areaSanader': areaSanader,
       'na3latSanader': na3latSanader,
       'so2otFoom': so2otFoom,
-      'additionalWork':
-          additionalWorkSteps?.map((step) => step?.toMap()).toList(),
     };
   }
-}
 
-class TypeContract {
-  String title;
-  List<String> steps;
-
-  TypeContract(this.title, this.steps);
-
-  factory TypeContract.fromMap(Map<String, dynamic> map) {
-    return TypeContract(
-      map['name'],
-      List<String>.from(map['steps']),
-    );
-  }
-
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toUI() {
     return {
-      title: steps,
+      'اسم العقد': contractNo,
+      'رقم القسيمة': voucherNo,
+      'اسم العميل': clientName,
+      'التلفون': phoneNumber,
+      'العنوان': address,
+      'عدد الحمامات': noBaths,
+      'عدد الاسمنت': noCement,
+      'عدد الطربال': noTarbal,
+      'كمية السكريد': noSecred,
+      'مساحة الاسطج': areaRoofs,
+      'نعلات الاسطج': na3latRoof,
+      'مساحة الحمامات': areaBaths,
+      'نعلات الحمامات': na3latBaths,
+      'مساحة الممرات': areaMamarat,
+      'نعلات الممرات': na3latMamarat,
+      'مساحة السنادر': areaSanader,
+      'نعلات السنادر': na3latSanader,
+      'سقوط الفوم': so2otFoom,
     };
   }
 }

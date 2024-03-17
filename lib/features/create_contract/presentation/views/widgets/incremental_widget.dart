@@ -1,6 +1,7 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
+import 'package:alqatareyacontracts/features/create_contract/models/form_model/steps_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
@@ -65,7 +66,8 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
                       context
                           .createFormCubit()
                           .form!
-                          .additionalWorkSteps![index]!,
+                          .additionalWorkSteps![index]!
+                          .stepTitle,
                       style: Styles.style16,
                     ),
                   ],
@@ -88,7 +90,8 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
                         .createFormCubit()
                         .form
                         ?.additionalWorkSteps
-                        ?.add(value);
+                        ?.add(
+                        StepsDetails(stepTitle: value ?? '', isDone: false));
                   });
 
                 },

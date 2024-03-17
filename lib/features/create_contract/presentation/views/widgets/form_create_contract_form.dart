@@ -12,12 +12,14 @@ class FormCreateContractForm extends StatefulWidget {
     this.validator,
     this.maxLine,
     this.content,
+    this.isDisabled,
   });
   final String title;
   final int? maxLine;
   final Function(String? value)? onSave;
   final String? Function(String?)? validator;
   final String? content;
+  final bool? isDisabled;
 
   @override
   State<FormCreateContractForm> createState() => _FormCreateContractFormState();
@@ -39,6 +41,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
         style: Styles.style14.copyWith(
           color: Colors.black,
         ),
+        enabled: widget.isDisabled ?? false,
         controller: controller,
         maxLines: widget.maxLine ?? 1,
         validator: widget.validator ?? (value) {},
@@ -48,6 +51,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
               EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
           isDense: true,
           filled: true,
+          
           fillColor: Colors.white,
           hintStyle: Styles.style14.copyWith(color: Colors.black),
           hintText: widget.title, // Placeholder text
@@ -55,7 +59,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
           errorStyle: Styles.style14.copyWith(
             color: Colors.red,
           ),
-
+          
           focusedErrorBorder: _border(),
           errorBorder: _border(),
           focusedBorder: _border(),

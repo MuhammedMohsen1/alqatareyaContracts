@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:alqatareyacontracts/features/auth_feature/cubit/login_cubit.dart';
+import 'package:alqatareyacontracts/features/contract_details.dart/presentation/cubit/contract_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,7 @@ extension MediaQueryExtension on BuildContext {
 }
 
 extension NavigationExtension on BuildContext {
-  void push(String routeName, {Map<String, dynamic>? arg}) {
+  void push(String routeName, {dynamic arg}) {
     sl<AppRouter>()
         .navigatorKey
         .currentState!
@@ -99,6 +100,10 @@ extension ContextExtensions on BuildContext {
 
   DashboardCubit dashboardCubit() {
     return read<DashboardCubit>();
+  }
+
+  ContractDetailsCubit contractDetailsCubit() {
+    return read<ContractDetailsCubit>();
   }
   // OnBoardingCubit onBoardingCubit() {
   //   // manager layout cubit

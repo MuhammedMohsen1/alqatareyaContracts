@@ -70,7 +70,9 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
             child: Text(
-              formatDate(dateTime ?? DateTime.now()),
+            
+              dateTime != null ? formatDate(dateTime!) : '-',
+       
               textAlign: TextAlign.end,
               style: Styles.style14.copyWith(
                 color: Colors.black,

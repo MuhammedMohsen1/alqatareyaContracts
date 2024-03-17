@@ -46,7 +46,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   // this return the latest note in the steps for each contract which is alot of work
   (String, ContractStatus) getTheLastestNoteAndStatus(FormDetails contract) {
     // LocalVariables to be used in this func
-    String latestNote = 'فارع';
+    String latestNote = '-';
     DateTime lowestDate = DateTime(2000);
     bool isDoneLower = false;
     bool isDoneHigher = true;

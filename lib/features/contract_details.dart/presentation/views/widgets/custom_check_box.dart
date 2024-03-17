@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class CustomCheckBox extends StatefulWidget {
-  CustomCheckBox({super.key, required this.value, this.onChange});
+  CustomCheckBox(
+      {super.key, required this.value, this.onChange, this.isDisabled});
   final Function(bool)? onChange;
   bool value;
+  final bool? isDisabled;
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();
 }
@@ -18,12 +20,14 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         child: Checkbox(
       value: widget.value,
       onChanged: (value) {
+        if (widget.isDisabled != true) {
         setState(() {
           widget.value = value!;
           if (widget.onChange != null) {
             widget.onChange!(value);
           }
         });
+        }
       },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.w),
