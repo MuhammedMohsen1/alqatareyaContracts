@@ -1,15 +1,15 @@
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
-import 'package:alqatareyacontracts/features/contract_details.dart/presentation/views/widgets/contract_details_data_table.dart';
 import 'package:alqatareyacontracts/features/shared/methods/show_dialog.dart';
+import 'package:alqatareyacontracts/features/employee_modules/contract_details.dart/presentation/views/widgets/contract_details_data_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../../../create_contract/models/form_model/steps_details.dart';
+import '../../../../../create_contract/models/form_model/steps_details.dart';
 
-class ContractTableDetailsWithTitle extends StatelessWidget {
-  const ContractTableDetailsWithTitle(
+class ContractTableDetailsWithTitleEmployee extends StatelessWidget {
+  const ContractTableDetailsWithTitleEmployee(
       {super.key,
       required this.title,
       required this.stepsDetails,
@@ -30,18 +30,18 @@ class ContractTableDetailsWithTitle extends StatelessWidget {
           children: [
             const Spacer(),
             if (detailsContent != null)
-            GestureDetector(
+              GestureDetector(
                 onTap: () {
                   showDeatilsDialog(context, 'تفاصيل $title', detailsContent);
                 },
-              child: Padding(
-                  padding: EdgeInsets.all(4.r),
-                  child: Icon(
-                    Ionicons.document_text_outline,
-                    color: AppColors.enabyDark,
-                    size: 24.w,
-                  )),
-            ),
+                child: Padding(
+                    padding: EdgeInsets.all(4.r),
+                    child: Icon(
+                      Ionicons.document_text_outline,
+                      color: AppColors.enabyDark,
+                      size: 24.w,
+                    )),
+              ),
             SizedBox(
               width: 10.w,
             ),
@@ -54,7 +54,7 @@ class ContractTableDetailsWithTitle extends StatelessWidget {
         SizedBox(
           height: 22.h,
         ),
-        ContractDetailsDataTable(stepsDetails: stepsDetails),
+        ContractDetailsDataTableEmployee(stepsDetails: stepsDetails),
       ],
     );
   }

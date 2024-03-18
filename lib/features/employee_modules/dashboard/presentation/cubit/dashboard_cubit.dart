@@ -1,26 +1,24 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
+import 'package:alqatareyacontracts/features/shared/models/dashboard_row_params.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/utils/app_constants.dart';
 
-import '../../../create_contract/models/form_model/form_model.dart';
-import '../../../shared/models/dashboard_row_params.dart';
+import '../../../../create_contract/models/form_model/form_model.dart';
 
+part 'dashboard_state_employee.dart';
 
-
-part 'dashboard_state.dart';
-
-class DashboardCubit extends Cubit<DashboardState> {
-  DashboardCubit() : super(DashboardInitial());
+class DashboardEmployeeCubit extends Cubit<DashboardEmployeeState> {
+  DashboardEmployeeCubit() : super(DashboardEmployeeInitial());
   List<FormDetails> contracts = [];
   List<DashboardRowParams> abstractedContract = [];
   Future<void> loadContracts() async {
     try {
       contracts = [];
       abstractedContract = [];
-      emit(DashboardLoading());
+      emit(DashboardEmployeeLoading());
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection(AppPaths.contracts).get();
       querySnapshot.docs.forEach((contract) {
@@ -32,9 +30,9 @@ class DashboardCubit extends Cubit<DashboardState> {
       });
 
       'Success'.logPrint();
-      emit(DashboardSuccess());
+      emit(DashboardEmployeeSuccess());
     } catch (e) {
-      emit(DashboardFailure());
+      emit(DashboardEmployeeFailure());
     }
   }
 
@@ -98,7 +96,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   }
 
   @override
-  void onChange(Change<DashboardState> change) {
+  void onChange(Change<DashboardEmployeeState> change) {
     change.toString().logPrint();
     super.onChange(change);
   }

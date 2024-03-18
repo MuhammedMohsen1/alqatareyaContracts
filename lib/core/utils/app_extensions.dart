@@ -8,6 +8,8 @@ import '../../core/injection/di_container.dart';
 import '../../core/routing/router.dart';
 import '../../features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
 import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
+import '../../features/employee_modules/contract_details.dart/presentation/cubit/contract_details_employee_cubit.dart';
+import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'enums.dart';
 
 extension MediaQueryExtension on BuildContext {
@@ -102,8 +104,16 @@ extension ContextExtensions on BuildContext {
     return read<DashboardCubit>();
   }
 
+  DashboardEmployeeCubit dashboardEmployeeCubit() {
+    return read<DashboardEmployeeCubit>();
+  }
+
   ContractDetailsCubit contractDetailsCubit() {
     return read<ContractDetailsCubit>();
+  }
+
+  ContractDetailsCubitEmployee contractDetailsCubitEmployee() {
+    return read<ContractDetailsCubitEmployee>();
   }
   // OnBoardingCubit onBoardingCubit() {
   //   // manager layout cubit

@@ -41,7 +41,7 @@ class _FormCreateContractFormState extends State<FormCreateContractForm> {
         style: Styles.style14.copyWith(
           color: Colors.black,
         ),
-        enabled: widget.isDisabled ?? false,
+        enabled: widget.isDisabled ?? true,
         controller: controller,
         maxLines: widget.maxLine ?? 1,
         validator: widget.validator ?? (value) {},

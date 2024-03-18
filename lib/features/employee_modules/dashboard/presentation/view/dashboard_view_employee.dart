@@ -4,48 +4,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../shared/widgets/failure_widget.dart';
+import '../../../../shared/widgets/failure_widget.dart';
 import '../cubit/dashboard_cubit.dart';
-import 'widgets/custom_data_table.dart';
-import 'widgets/title_data_table.dart';
+import 'widgets/custom_data_table_employee.dart';
+import 'widgets/title_data_table_employee.dart';
 
-class DashboardView extends StatelessWidget {
-  const DashboardView({super.key});
+class DashboardEmployeeView extends StatelessWidget {
+  const DashboardEmployeeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocBuilder<DashboardCubit, DashboardState>(
+        body: BlocBuilder<DashboardEmployeeCubit, DashboardEmployeeState>(
           builder: (context, state) {
             switch (state) {
-              case DashboardLoading():
-              case DashboardInitial():
+              case DashboardEmployeeLoading():
+              case DashboardEmployeeInitial():
                 return const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.enabyDark,
                   ),
                 );
-              case DashboardSuccess():
+              case DashboardEmployeeSuccess():
                 return RefreshIndicator(
                   onRefresh: () async {
-                    context.dashboardCubit().loadContracts();
+                    context.dashboardEmployeeCubit().loadContracts();
                   },
                   child: Padding(
                     padding: EdgeInsets.all(17.sp),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const TitleDataTable(),
+                        const TitleDataTableEmployee(),
                         SizedBox(
                           height: 22.h,
                         ),
-                        const CustomDataTable(),
+                        const CustomDataTableEmployee(),
                       ],
                     ),
                   ),
                 );
-              case DashboardFailure():
+              case DashboardEmployeeFailure():
                 return const FailureWidget();
             }
           },

@@ -9,6 +9,9 @@ class CacheUtils {
   }
   static Future<void> deleteRole() async {
     await CacheHelper.removeValue(key: CacheKeys.role);
+  } 
+  static Future<String> getRole() async {
+    return await CacheHelper.getData(key: CacheKeys.role);
   }
 
   static void login() async {

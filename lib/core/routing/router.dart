@@ -4,6 +4,7 @@ import 'package:alqatareyacontracts/features/create_contract/models/form_model/f
 import 'package:alqatareyacontracts/features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
 import 'package:alqatareyacontracts/features/create_contract/presentation/views/create_contract.dart';
 import 'package:alqatareyacontracts/features/dashboard/presentation/view/dashboard_view.dart';
+import 'package:alqatareyacontracts/features/employee_modules/contract_details.dart/presentation/cubit/contract_details_employee_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,9 @@ import '../../features/auth_feature/login_view.dart';
 import '../../features/contract_details.dart/presentation/cubit/contract_details_cubit.dart';
 import '../../features/contract_details.dart/presentation/views/contract_details.dart';
 import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
+import '../../features/employee_modules/contract_details.dart/presentation/views/contract_details.dart';
+import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit.dart';
+import '../../features/employee_modules/dashboard/presentation/view/dashboard_view_employee.dart';
 import '../../features/splash_feature/splash_screen.dart';
 
 import 'routes.dart';
@@ -35,6 +39,11 @@ class AppRouter {
           create: (context) => DashboardCubit()..loadContracts(),
           child: const DashboardView(),
         ));
+      case Routes.dashboardEmployee:
+        return _getPageRoute(BlocProvider(
+          create: (context) => DashboardEmployeeCubit()..loadContracts(),
+          child: const DashboardEmployeeView(),
+        ));
       case Routes.createContract:
         return _getPageRoute(BlocProvider(
           create: (context) => CreateFormCubit()..fetchStepsInformation(),
@@ -46,6 +55,13 @@ class AppRouter {
           create: (context) =>
               ContractDetailsCubit()..loadContractDetails(contract),
           child: const ContractDetailsView(),
+        ));
+      case Routes.contractDetailsEmployee:
+        FormDetails contract = settings.arguments as FormDetails;
+        return _getPageRoute(BlocProvider(
+          create: (context) =>
+              ContractDetailsCubitEmployee()..loadContractDetails(contract),
+          child: const ContractDetailsEmployeeView(),
         ));
     }
     return null;

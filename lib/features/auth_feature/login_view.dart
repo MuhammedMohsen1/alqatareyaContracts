@@ -1,4 +1,5 @@
 import 'package:alqatareyacontracts/core/routing/routes.dart';
+import 'package:alqatareyacontracts/core/utils/app_constants.dart';
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/flutter_toast_message.dart';
@@ -20,7 +21,14 @@ class LoginView extends StatelessWidget {
       body: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            context.pushAndRemove(Routes.dashboard);
+            if (state.role == AppRoles.admin) {
+              context.pushAndRemove(Routes.dashboard);
+            } else if (state.role == AppRoles.notAdmin) {
+              context.pushAndRemove(Routes.dashboardEmployee);
+            } else {
+              showToast('حدث خطأ برجاء المحاولة لاحقاً', ToastType.error);
+            }
+         
           } else if (state is LoginFailure) {
             showToast('برجاء التاكد من كلمة السر و البريد الالكترونى',
                 ToastType.error);

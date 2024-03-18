@@ -1,21 +1,20 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
+import 'package:alqatareyacontracts/features/shared/models/dashboard_row_params.dart';
+import 'package:alqatareyacontracts/features/dashboard/presentation/view/widgets/on_going_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/routing/routes.dart';
+import '../../../../../dashboard/presentation/view/widgets/not_started_status_widget.dart';
+import '../../../../../dashboard/presentation/view/widgets/status_widget.dart';
+import '../../../../../shared/methods/formate_date.dart';
 
-import '../../../../shared/methods/formate_date.dart';
-import '../../../../shared/models/dashboard_row_params.dart';
-import 'not_started_status_widget.dart';
-import 'on_going_status_widget.dart';
-import 'status_widget.dart';
-
-class CustomDataTable extends StatelessWidget {
-  const CustomDataTable({
+class CustomDataTableEmployee extends StatelessWidget {
+  const CustomDataTableEmployee({
     super.key,
   });
-  
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -43,12 +42,14 @@ class CustomDataTable extends StatelessWidget {
                 children: [
                   getTitleTableRow(),
                   ...List.generate(
-                    context.dashboardCubit().abstractedContract.length,
-                    (index) => getTableRow(context,
-                        context.dashboardCubit().abstractedContract[index],
+                    context.dashboardEmployeeCubit().abstractedContract.length,
+                    (index) => getTableRow(
+                        context,
+                        context
+                            .dashboardEmployeeCubit()
+                            .abstractedContract[index],
                         index),
                   ),
-                  
                 ],
               ),
             ),
@@ -60,8 +61,8 @@ class CustomDataTable extends StatelessWidget {
 
   void _onTap(BuildContext context, int index) {
     'Log'.logPrint();
-    context.push(Routes.contractDetails,
-        arg: context.dashboardCubit().contracts[index]);
+    context.push(Routes.contractDetailsEmployee,
+        arg: context.dashboardEmployeeCubit().contracts[index]);
   }
 
   TableRow getTitleTableRow() {
@@ -147,8 +148,7 @@ class CustomDataTable extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child:
-              Text(formatDayinArab(params.createdDate) ?? '-',
+          child: Text(formatDayinArab(params.createdDate) ?? '-',
               textAlign: TextAlign.center, style: Styles.style12),
         ),
       ),

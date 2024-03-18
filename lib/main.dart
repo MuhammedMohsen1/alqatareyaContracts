@@ -1,5 +1,6 @@
 import 'package:alqatareyacontracts/core/cache/cahce_utils.dart';
-import 'package:alqatareyacontracts/features/auth_feature/cubit/login_cubit.dart';
+import 'package:alqatareyacontracts/core/utils/app_constants.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -12,6 +13,8 @@ import 'core/hive/hive_initializer.dart';
 import 'core/injection/di_container.dart';
 import 'core/routing/router.dart';
 import 'core/routing/routes.dart';
+
+import 'features/auth_feature/cubit/login_cubit.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -49,8 +52,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        initialRoute: CacheUtils.isLoggedIn() ? Routes.dashboard : Routes.login,
+        title: 'Alqatereya',
+        initialRoute: CacheUtils.isLoggedIn()
+            ? CacheUtils.getRole() == AppRoles.admin
+                ? Routes.dashboard
+                : Routes.dashboardEmployee
+            : Routes.login,
         navigatorKey: sl<AppRouter>().navigatorKey,
         onGenerateRoute: sl<AppRouter>().generateRoute,
       ),
