@@ -14,7 +14,7 @@ import '../../features/contract_details.dart/presentation/cubit/contract_details
 import '../../features/contract_details.dart/presentation/views/contract_details.dart';
 import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../features/employee_modules/contract_details.dart/presentation/views/contract_details.dart';
-import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit.dart';
+import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit_employee.dart';
 import '../../features/employee_modules/dashboard/presentation/view/dashboard_view_employee.dart';
 import '../../features/splash_feature/splash_screen.dart';
 

@@ -35,6 +35,8 @@ class LoginCubit extends Cubit<LoginState> {
             emit(LoginSuccess(AppRoles.notAdmin));
           }
           CacheUtils.login();
+          CacheUtils.setUserName(userAuth.email);
+          
         } else {
           emit(LoginFailure());
         }

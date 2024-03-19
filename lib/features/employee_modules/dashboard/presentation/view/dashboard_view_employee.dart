@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../shared/widgets/failure_widget.dart';
-import '../cubit/dashboard_cubit.dart';
+import '../cubit/dashboard_cubit_employee.dart';
 import 'widgets/custom_data_table_employee.dart';
 import 'widgets/title_data_table_employee.dart';
 

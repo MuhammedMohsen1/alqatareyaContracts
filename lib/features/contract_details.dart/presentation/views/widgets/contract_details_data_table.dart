@@ -3,6 +3,7 @@ import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:alqatareyacontracts/features/create_contract/presentation/views/widgets/custom_date_time_picker.dart';
 import 'package:alqatareyacontracts/features/shared/methods/formate_date.dart';
+import 'package:alqatareyacontracts/features/shared/methods/show_notes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/routing/routes.dart';
@@ -123,10 +124,17 @@ class ContractDetailsDataTable extends StatelessWidget {
         child: Text(formatDayinArab(stepDetails.date) ?? '-',
             textAlign: TextAlign.center, style: Styles.style12),
       ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-        child: Text(stepDetails.notes?.last ?? '-',
-            textAlign: TextAlign.center, style: Styles.style11),
+      GestureDetector(
+        onTap: () {
+          if ((stepDetails.notes?.length ?? 0) >= 1) {
+            showNotesDialog(context, 'ملاحظات', stepDetails.notes!);
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
+          child: Text(stepDetails.notes?.last ?? '-',
+              textAlign: TextAlign.center, style: Styles.style11),
+        ),
       ),
     ]);
   }

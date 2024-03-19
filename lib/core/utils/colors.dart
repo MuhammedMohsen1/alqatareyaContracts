@@ -11,6 +11,7 @@ class AppColors {
   static const enabyDark = Color(0xD2720C33);
   static const enaby = Color(0x78720C33);
   static const enabyLight = Color(0x66720C33);
+
   static const redLight = Color(0xFFF5B7B7);
   static const redDark = Color(0xFFFF0000);
   static const greenLight = Color(0xFFE0FBD7);

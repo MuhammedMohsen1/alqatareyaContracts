@@ -9,15 +9,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../create_contract/models/form_model/steps_details.dart';
 import '../../../../../create_contract/presentation/views/widgets/show_input_dialog.dart';
 import 'custom_check_box.dart';
+import 'details_type.dart';
 
 class ContractDetailsDataTableEmployee extends StatefulWidget {
   const ContractDetailsDataTableEmployee({
     super.key,
     required this.stepsDetails,
     this.isDisabled,
+    required this.save,
   });
   final List<StepsDetails> stepsDetails;
   final bool? isDisabled;
+  final Function(List<StepsDetails>) save;
 
   @override
   State<ContractDetailsDataTableEmployee> createState() =>
@@ -54,7 +57,7 @@ class _ContractDetailsDataTableEmployeeState
                 getTitleTableRow(),
                 ...List.generate(
                   widget.stepsDetails.length,
-                  (index) => getTableRow(context, widget.stepsDetails, index),
+                  (index) => getTableRow(context, index),
                 )
               ],
             ),
@@ -103,14 +106,19 @@ class _ContractDetailsDataTableEmployeeState
     ]);
   }
 
-  TableRow getTableRow(
-      BuildContext context, List<StepsDetails> stepsDetails, int index) {
+  void onChange() {
+    widget.save(widget.stepsDetails);
+  }
+
+  TableRow getTableRow(BuildContext context, int index) {
     bool checkisDisabled = true;
-    if (index == 0 || stepsDetails[index - 1].isDone == true) {
+    if (index == 0 || widget.stepsDetails[index - 1].isDone == true) {
       checkisDisabled = false;
     }
     bool noteisDisabled = true;
-    if (index == 0 || stepsDetails[index - 1].isDone == true) {
+    if (widget.stepsDetails[index].isDone == true) {
+      noteisDisabled = true;
+    } else if (index == 0 || widget.stepsDetails[index - 1].isDone == true) {
       noteisDisabled = false;
     }
     return TableRow(children: [
@@ -119,33 +127,35 @@ class _ContractDetailsDataTableEmployeeState
           vertical: 12.h,
           horizontal: 4.w,
         ),
-        child: Text(stepsDetails[index].stepTitle,
+        child: Text(widget.stepsDetails[index].stepTitle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: Styles.style12),
       ),
       CustomCheckBox(
-        value: stepsDetails[index].isDone,
+        value: widget.stepsDetails[index].isDone,
         isDisabled: checkisDisabled,
         onChange: (value) {
           setState(() {
-            stepsDetails[index].isDone = value;
+            widget.stepsDetails[index].isDone = value;
+            widget.stepsDetails[index].date = DateTime.now();
+            onChange();
           });
         },
       ),
       Padding(
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
         child: Text(
-            stepsDetails[index].date != null
-                ? formatDate(stepsDetails[index].date!)
+            widget.stepsDetails[index].date != null
+                ? formatDate(widget.stepsDetails[index].date!)
                 : '-',
             textAlign: TextAlign.center,
             style: Styles.style12.copyWith()),
       ),
       Padding(
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-        child: Text(formatDayinArab(stepsDetails[index].date) ?? '-',
+        child: Text(formatDayinArab(widget.stepsDetails[index].date) ?? '-',
             textAlign: TextAlign.center, style: Styles.style12),
       ),
       GestureDetector(
@@ -153,18 +163,20 @@ class _ContractDetailsDataTableEmployeeState
           if (!noteisDisabled) {
             showInputDialog(context, 'ملاحظات', 4, (String? value) {
               setState(() {
-                if (stepsDetails[index].notes != null) {
-                  stepsDetails[index].notes!.add(value!);
+                if (widget.stepsDetails[index].notes != null) {
+                  widget.stepsDetails[index].notes!.add(value!);
                 } else {
-                  stepsDetails[index].notes = [value!];
+                  widget.stepsDetails[index].notes = [value!];
                 }
+                widget.stepsDetails[index].date = DateTime.now();
+                onChange();
               });
-            }, stepsDetails[index].notes?.last);
+            }, widget.stepsDetails[index].notes?.last);
           }
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child: Text(stepsDetails[index].notes?.last ?? '-',
+          child: Text(widget.stepsDetails[index].notes?.last ?? '-',
               textAlign: TextAlign.center, style: Styles.style11),
         ),
       ),

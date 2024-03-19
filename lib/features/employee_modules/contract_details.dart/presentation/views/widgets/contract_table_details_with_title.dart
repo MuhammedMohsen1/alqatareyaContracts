@@ -7,16 +7,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../../../create_contract/models/form_model/steps_details.dart';
+import 'details_type.dart';
 
 class ContractTableDetailsWithTitleEmployee extends StatelessWidget {
   const ContractTableDetailsWithTitleEmployee(
       {super.key,
       required this.title,
       required this.stepsDetails,
-      this.detailsContent});
+      this.detailsContent,
+      required this.save});
   final String title;
   final List<StepsDetails> stepsDetails;
   final String? detailsContent;
+  final Function(List<StepsDetails>) save;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -54,7 +57,8 @@ class ContractTableDetailsWithTitleEmployee extends StatelessWidget {
         SizedBox(
           height: 22.h,
         ),
-        ContractDetailsDataTableEmployee(stepsDetails: stepsDetails),
+        ContractDetailsDataTableEmployee(
+            stepsDetails: stepsDetails, save: save),
       ],
     );
   }

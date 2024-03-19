@@ -9,7 +9,7 @@ import '../../core/routing/router.dart';
 import '../../features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
 import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../features/employee_modules/contract_details.dart/presentation/cubit/contract_details_employee_cubit.dart';
-import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit.dart';
+import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit_employee.dart';
 import 'enums.dart';
 
 extension MediaQueryExtension on BuildContext {

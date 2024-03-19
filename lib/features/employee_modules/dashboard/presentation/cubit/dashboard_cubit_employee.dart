@@ -1,3 +1,4 @@
+import 'package:alqatareyacontracts/core/cache/cahce_utils.dart';
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/features/shared/models/dashboard_row_params.dart';
 import 'package:bloc/bloc.dart';
@@ -19,8 +20,11 @@ class DashboardEmployeeCubit extends Cubit<DashboardEmployeeState> {
       contracts = [];
       abstractedContract = [];
       emit(DashboardEmployeeLoading());
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection(AppPaths.contracts).get();
+      String myUserName = await CacheUtils.getUserName();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection(AppPaths.contracts)
+          .where('mandoobName', isEqualTo: myUserName)
+          .get();
       querySnapshot.docs.forEach((contract) {
         FormDetails formatedContract =
             FormDetails.fromMap(contract.data() as Map<String, dynamic>);
@@ -73,6 +77,20 @@ class DashboardEmployeeCubit extends Cubit<DashboardEmployeeState> {
         if (bathStep.date!.difference(lowestDate).inMilliseconds > 0) {
           lowestDate = bathStep.date!;
           latestNote = bathStep.notes?.last ?? latestNote;
+        }
+      } else {
+        // this mean that the steps is not completed yet
+        isDoneHigher = false;
+      }
+    });
+    contract.additionalWorkSteps?.forEach((additionalWorkSteps) {
+      if (additionalWorkSteps.date != null) {
+        // this means that the user has submitted the step
+        isDoneLower = true;
+        if (additionalWorkSteps.date!.difference(lowestDate).inMilliseconds >
+            0) {
+          lowestDate = additionalWorkSteps.date!;
+          latestNote = additionalWorkSteps.notes?.last ?? latestNote;
         }
       } else {
         // this mean that the steps is not completed yet

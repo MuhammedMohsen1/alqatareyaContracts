@@ -25,9 +25,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   ServiceLocator().init();
   await CacheHelper.init();
   await Hive.initFlutter();
+  final String role = await CacheUtils.getRole();
+  final bool isLoggedIn = await CacheUtils.isLoggedIn();
   await HiveInitializer.initializeHive();
   // Future.delayed(const Duration(milliseconds: 1500),() => FlutterNativeSplash.remove(),);
   runApp(MultiBlocProvider(
@@ -35,15 +38,15 @@ void main() async {
       BlocProvider(
         create: (context) => LoginCubit(),
       ),
-     
     ],
-    child: const MyApp(),
+    child: MyApp(role: role, isLoggedIn: isLoggedIn),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.role, required this.isLoggedIn});
+  final String role;
+  final bool isLoggedIn;
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -53,8 +56,8 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Alqatereya',
-        initialRoute: CacheUtils.isLoggedIn()
-            ? CacheUtils.getRole() == AppRoles.admin
+        initialRoute: isLoggedIn
+            ? role == AppRoles.admin
                 ? Routes.dashboard
                 : Routes.dashboardEmployee
             : Routes.login,

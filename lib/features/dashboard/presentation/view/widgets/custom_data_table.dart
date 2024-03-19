@@ -1,11 +1,13 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
+import 'package:alqatareyacontracts/features/shared/methods/show_notes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/routing/routes.dart';
 
 import '../../../../shared/methods/formate_date.dart';
+import '../../../../shared/methods/show_drop_down_dialog.dart';
 import '../../../../shared/models/dashboard_row_params.dart';
 import 'not_started_status_widget.dart';
 import 'on_going_status_widget.dart';
@@ -15,7 +17,7 @@ class CustomDataTable extends StatelessWidget {
   const CustomDataTable({
     super.key,
   });
-  
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -44,11 +46,11 @@ class CustomDataTable extends StatelessWidget {
                   getTitleTableRow(),
                   ...List.generate(
                     context.dashboardCubit().abstractedContract.length,
-                    (index) => getTableRow(context,
+                    (index) => getTableRow(
+                        context,
                         context.dashboardCubit().abstractedContract[index],
                         index),
                   ),
-                  
                 ],
               ),
             ),
@@ -62,6 +64,15 @@ class CustomDataTable extends StatelessWidget {
     'Log'.logPrint();
     context.push(Routes.contractDetails,
         arg: context.dashboardCubit().contracts[index]);
+  }
+
+  void _onLongPress(BuildContext context, int index) {
+    'onLongPress'.logPrint();
+    if (context.dashboardCubit().contracts[index].mandoobName == null) {
+      showDropDownDialog(context, ' title', (value) {
+        context.dashboardCubit().updateMandoob(index, value!);
+      }, context.dashboardCubit().users, index);
+    }
   }
 
   TableRow getTitleTableRow() {
@@ -110,6 +121,9 @@ class CustomDataTable extends StatelessWidget {
         onTap: () {
           _onTap(context, index);
         },
+        onLongPress: () {
+          _onLongPress(context, index);
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: 12.h,
@@ -126,6 +140,9 @@ class CustomDataTable extends StatelessWidget {
           onTap: () {
             _onTap(context, index);
           },
+          onLongPress: () {
+            _onLongPress(context, index);
+          },
           child: params.Status == ContractStatus.FINISHED
               ? const FinishedStatusWidget()
               : params.Status == ContractStatus.NOTSTARTED
@@ -134,6 +151,9 @@ class CustomDataTable extends StatelessWidget {
       GestureDetector(
         onTap: () {
           _onTap(context, index);
+        },
+        onLongPress: () {
+          _onLongPress(context, index);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
@@ -145,16 +165,21 @@ class CustomDataTable extends StatelessWidget {
         onTap: () {
           _onTap(context, index);
         },
+        onLongPress: () {
+          _onLongPress(context, index);
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child:
-              Text(formatDayinArab(params.createdDate) ?? '-',
+          child: Text(formatDayinArab(params.createdDate) ?? '-',
               textAlign: TextAlign.center, style: Styles.style12),
         ),
       ),
       GestureDetector(
         onTap: () {
           _onTap(context, index);
+        },
+        onLongPress: () {
+          _onLongPress(context, index);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),

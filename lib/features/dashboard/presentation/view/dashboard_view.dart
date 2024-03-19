@@ -31,6 +31,8 @@ class DashboardView extends StatelessWidget {
                   onRefresh: () async {
                     context.dashboardCubit().loadContracts();
                   },
+                  backgroundColor: AppColors.enabyDark,
+                  color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(17.sp),
                     child: Column(

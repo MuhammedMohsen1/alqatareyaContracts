@@ -27,12 +27,12 @@ class TitleDataTableEmployee extends StatelessWidget {
               color: AppColors.enabyDark,
             )),
         const Spacer(),
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.filter,
-              color: AppColors.enabyDark,
-            )),
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Ionicons.filter,
+        //       color: AppColors.enabyDark,
+        //     )),
         SizedBox(
           width: 10.w,
         ),

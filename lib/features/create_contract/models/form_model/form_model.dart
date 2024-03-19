@@ -6,6 +6,7 @@ class FormDetails {
   String? clientName;
   String? phoneNumber;
   String? address;
+
   DateTime? createDate;
   List<StepsDetails>? roofSteps;
   bool? isThereBaths;
@@ -26,6 +27,7 @@ class FormDetails {
   String? na3latSanader;
   String? so2otFoom;
   List<StepsDetails>? additionalWorkSteps;
+  String? mandoobName;
 
   FormDetails({
     this.contractNo,
@@ -53,6 +55,7 @@ class FormDetails {
     this.na3latSanader,
     this.so2otFoom,
     this.additionalWorkSteps,
+    this.mandoobName,
   });
 
   factory FormDetails.initial() {
@@ -82,6 +85,7 @@ class FormDetails {
       na3latSanader: null,
       so2otFoom: null,
       additionalWorkSteps: [],
+      mandoobName: null,
     );
   }
   factory FormDetails.fromMap(Map<String, dynamic> map) {
@@ -114,13 +118,14 @@ class FormDetails {
       na3latMamarat: map['na3latMamarat'],
       areaSanader: map['areaSanader'],
       na3latSanader: map['na3latSanader'],
-      so2otFoom: map['so2otFoom'],
+      so2otFoom: map['so2otFoom'],      
+   
 
       
       additionalWorkSteps: (map['additionalWork'] as List<dynamic>?)
           ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
           .toList(),
-          
+      mandoobName: map['mandoobName'],
     );
   }
 
@@ -150,8 +155,10 @@ class FormDetails {
       'areaSanader': areaSanader,
       'na3latSanader': na3latSanader,
       'so2otFoom': so2otFoom,
+      
       'additionalWork':
           additionalWorkSteps?.map((step) => step?.toMap()).toList(),
+      'mandoobName': mandoobName,
     };
   }
 }

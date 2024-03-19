@@ -15,7 +15,7 @@ class StepsDetails {
   Map<String, dynamic> toMap() {
     return {
       'stepTitle': stepTitle,
-      'date': date?.millisecondsSinceEpoch, // Convert DateTime to milliseconds
+      'date': date, // Convert DateTime to milliseconds
       'isDone': isDone,
       'notes': notes,
     };

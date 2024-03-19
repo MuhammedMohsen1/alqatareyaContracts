@@ -5,10 +5,9 @@ import 'package:meta/meta.dart';
 
 import '../../../../../core/utils/app_constants.dart';
 
+import '../../../../core/utils/flutter_toast_message.dart';
 import '../../../create_contract/models/form_model/form_model.dart';
 import '../../../shared/models/dashboard_row_params.dart';
-
-
 
 part 'dashboard_state.dart';
 
@@ -16,10 +15,14 @@ class DashboardCubit extends Cubit<DashboardState> {
   DashboardCubit() : super(DashboardInitial());
   List<FormDetails> contracts = [];
   List<DashboardRowParams> abstractedContract = [];
+
+  List<String> users = [];
+
   Future<void> loadContracts() async {
     try {
       contracts = [];
       abstractedContract = [];
+
       emit(DashboardLoading());
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection(AppPaths.contracts).get();
@@ -30,12 +33,24 @@ class DashboardCubit extends Cubit<DashboardState> {
         // Spliting the abstract view
         splitAbstractContracts(formatedContract);
       });
-
+      loadNotAdminUsers();
       'Success'.logPrint();
       emit(DashboardSuccess());
     } catch (e) {
       emit(DashboardFailure());
     }
+  }
+
+  void loadNotAdminUsers() async {
+    users = [];
+    QuerySnapshot queryUsers =
+        await FirebaseFirestore.instance.collection(AppPaths.users).get();
+    queryUsers.docs
+        .where((users) =>
+            (users.data() as Map)[AppConstants.role] == AppRoles.notAdmin)
+        .forEach((notAdmin) {
+      users.add((notAdmin.data() as Map)[AppConstants.email] as String);
+    });
   }
 
   void splitAbstractContracts(FormDetails contract) {
@@ -95,6 +110,37 @@ class DashboardCubit extends Cubit<DashboardState> {
       ContractStatus.FINISHED;
     }
     return (latestNote, status);
+  }
+
+  void updateMandoob(int selectedContractIndex, String mandoobName) async {
+    try {
+      // Get a reference to the Firestore collection
+      CollectionReference contractsCollection =
+          FirebaseFirestore.instance.collection('contracts');
+
+      // Query the contracts collection to find the document with the matching contract number
+      QuerySnapshot querySnapshot = await contractsCollection
+          .where('contractNo',
+              isEqualTo: contracts[selectedContractIndex].contractNo)
+          .get();
+
+      // Check if a document with the matching contract number was found
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the reference to the first document (assuming there's only one document with the matching contract number)
+        DocumentReference contractRef = querySnapshot.docs.first.reference;
+
+        // Update the roofSteps field of the contract document
+        await contractRef.update({
+          'mandoobName': mandoobName,
+        });
+        contracts[selectedContractIndex].mandoobName = mandoobName;
+        showToast('تم تحديث الحالة', ToastType.info);
+      } else {
+        showToast('حدث خطأ', ToastType.error);
+      }
+    } catch (e) {
+      showToast('حدث خطأ', ToastType.error);
+    }
   }
 
   @override

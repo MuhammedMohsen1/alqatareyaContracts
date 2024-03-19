@@ -17,11 +17,20 @@ class CacheUtils {
   static void login() async {
     await CacheHelper.putData(key: CacheKeys.isLogin, value: true);
   }
-  static bool isLoggedIn() {
-    return CacheHelper.getData(key: CacheKeys.isLogin) == null ? false : true;
+  static Future<bool> isLoggedIn() async {
+    return await CacheHelper.getData(key: CacheKeys.isLogin) ?? false;
   }
 
   static void signOut() async {
-    await CacheHelper.putData(key: CacheKeys.isLogin, value: false);
+    await CacheHelper.clearCache();
+  }
+
+  static Future<String> getUserName() async {
+    return await CacheHelper.getData(key: CacheKeys.userName);
+  }
+
+  static void setUserName(String name) async {
+    await CacheHelper.putData(key: CacheKeys.userName, value: name);
+    
   }
 }

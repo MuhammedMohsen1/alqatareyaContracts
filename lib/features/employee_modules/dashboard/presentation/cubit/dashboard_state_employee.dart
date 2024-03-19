@@ -1,4 +1,4 @@
-part of 'dashboard_cubit.dart';
+part of 'dashboard_cubit_employee.dart';
 
 @immutable
 sealed class DashboardEmployeeState {}

@@ -1,10 +1,10 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
-import 'package:alqatareyacontracts/features/contract_details.dart/presentation/cubit/contract_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../create_contract/models/form_model/steps_details.dart';
 import '../../../../create_contract/presentation/views/widgets/create_form_header.dart';
 import '../cubit/contract_details_employee_cubit.dart';
 import 'widgets/contract_table_details_with_title.dart';
@@ -60,6 +60,15 @@ class ContractDetailsEmployeeView extends StatelessWidget {
                               .contractDetailsCubitEmployee()
                               .contract
                               .tarbalDetails,
+                          save: (List<StepsDetails> stepsDetails) {
+                            context
+                                .contractDetailsCubitEmployee()
+                                .contract
+                                .roofSteps = stepsDetails;
+                            context
+                                .contractDetailsCubitEmployee()
+                                .updateTheContract();
+                          },
                         ),
                       if (context
                               .contractDetailsCubitEmployee()
@@ -76,6 +85,15 @@ class ContractDetailsEmployeeView extends StatelessWidget {
                               .contractDetailsCubitEmployee()
                               .contract
                               .bathsDetails,
+                          save: (List<StepsDetails> stepsDetails) {
+                            context
+                                .contractDetailsCubitEmployee()
+                                .contract
+                                .bathsSteps = stepsDetails;
+                            context
+                                .contractDetailsCubitEmployee()
+                                .updateTheContract();
+                          },
                         ),
                       if (context
                               .contractDetailsCubitEmployee()
@@ -88,6 +106,15 @@ class ContractDetailsEmployeeView extends StatelessWidget {
                               .contractDetailsCubitEmployee()
                               .contract
                               .additionalWorkSteps!,
+                          save: (List<StepsDetails> stepsDetails) {
+                            context
+                                .contractDetailsCubitEmployee()
+                                .contract
+                                .additionalWorkSteps = stepsDetails;
+                            context
+                                .contractDetailsCubitEmployee()
+                                .updateTheContract();
+                          },
                         ),
                     ],
                   ),
