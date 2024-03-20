@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'widgets/area_and_size_widget.dart';
 import 'widgets/create_form_header.dart';
 import 'widgets/custom_date_time_picker.dart';
