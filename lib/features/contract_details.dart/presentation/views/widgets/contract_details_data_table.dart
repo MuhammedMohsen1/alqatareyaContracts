@@ -109,7 +109,7 @@ class ContractDetailsDataTable extends StatelessWidget {
             style: Styles.style12),
       ),
       CustomCheckBox(
-        value: false,
+        value: stepDetails.isDone ?? false,
         isDisabled: true,
       ),
       Padding(
