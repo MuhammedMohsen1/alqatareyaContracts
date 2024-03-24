@@ -26,7 +26,7 @@ class ContractDetailsCubitEmployee extends Cubit<ContractDetailsEmployeeState> {
     // Spliting the Headers
     headerDetails = HeaderDetails.fromMap(contract.toMap());
     headerDetails.toUI().forEach((key, value) {
-      if (value != null) {
+      if (value != null && value != '') {
         header.add(
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -49,14 +49,14 @@ class ContractDetailsCubitEmployee extends Cubit<ContractDetailsEmployeeState> {
           FirebaseFirestore.instance.collection('contracts');
 
       // Query the contracts collection to find the document with the matching contract number
-      QuerySnapshot querySnapshot = await contractsCollection
-          .where('contractNo', isEqualTo: contract.contractNo)
+      DocumentSnapshot<Object?> documentSnapshot =
+          await contractsCollection.doc(contract.id)
           .get();
 
       // Check if a document with the matching contract number was found
-      if (querySnapshot.docs.isNotEmpty) {
+      if (documentSnapshot.exists) {
         // Get the reference to the first document (assuming there's only one document with the matching contract number)
-        DocumentReference contractRef = querySnapshot.docs.first.reference;
+        DocumentReference contractRef = documentSnapshot.reference;
 
         // Update the roofSteps field of the contract document
         await contractRef.update({

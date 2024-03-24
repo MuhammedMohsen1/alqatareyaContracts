@@ -16,7 +16,7 @@ class CustomDateTimePicker extends StatefulWidget {
 }
 
 class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
-  DateTime? dateTime;
+  DateTime? dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {

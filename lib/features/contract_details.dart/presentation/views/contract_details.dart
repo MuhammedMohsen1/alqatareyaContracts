@@ -76,7 +76,12 @@ class ContractDetailsView extends StatelessWidget {
                               .contractDetailsCubit()
                               .contract
                               .additionalWorkSteps !=
-                          null)
+                              null &&
+                          context
+                              .contractDetailsCubit()
+                              .contract
+                              .additionalWorkSteps!
+                              .isNotEmpty)
                         ContractTableDetailsWithTitle(
                           title: 'الأعمال الاضافية',
                           stepsDetails: context

@@ -4,6 +4,7 @@ import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:alqatareyacontracts/features/shared/methods/show_notes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 import '../../../../../../core/routing/routes.dart';
 
 import '../../../../shared/methods/formate_date.dart';
@@ -20,50 +21,61 @@ class CustomDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: [
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  border:
-                      Border.all(color: AppColors.borderDataTable, width: 1)),
-              child: Table(
-                border: const TableBorder(
-                  horizontalInside: BorderSide(
-                    color: AppColors.borderDataTable,
-                    width: 0.8,
-                  ),
+    return ListView(
+      children: [
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(color: AppColors.borderDataTable, width: 1)),
+            child: Table(
+              border: const TableBorder(
+                horizontalInside: BorderSide(
+                  color: AppColors.borderDataTable,
+                  width: 0.8,
                 ),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                columnWidths: const {
-                  4: FlexColumnWidth(2),
-                  3: FlexColumnWidth(0.5),
-                },
-                children: [
-                  getTitleTableRow(),
-                  ...List.generate(
-                    context.dashboardCubit().abstractedContract.length,
-                    (index) => getTableRow(
-                        context,
-                        context.dashboardCubit().abstractedContract[index],
-                        index),
-                  ),
-                ],
               ),
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              columnWidths: const {
+                4: FlexColumnWidth(2),
+                3: FlexColumnWidth(0.5),
+                5: FlexColumnWidth(0.5),
+              },
+              children: [
+                getTitleTableRow(),
+                ...List.generate(
+                  context.dashboardCubit().abstractedContract.length,
+                  (index) => getTableRow(
+                      context,
+                      context.dashboardCubit().abstractedContract[index],
+                      index),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   void _onTap(BuildContext context, int index) {
     'Log'.logPrint();
     context.push(Routes.contractDetails,
-        arg: context.dashboardCubit().contracts[index]);
+            arg: context.dashboardCubit().contracts[index])
+        .then((value) {
+      context.dashboardCubit().loadContracts();
+    });
+  }
+
+  void _updateContract(BuildContext context, int index) {
+    'Log'.logPrint();
+    context
+        .push(Routes.updateContract,
+            arg: context.dashboardCubit().contracts[index])
+        .then((value) {
+      context.dashboardCubit().loadContracts();
+    });
   }
 
   void _onLongPress(BuildContext context, int index) {
@@ -107,10 +119,10 @@ class CustomDataTable extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Styles.style12.copyWith(fontWeight: FontWeight.bold)),
       ),
-      // Padding(
-      //   padding: EdgeInsets.symmetric(vertical: 7.h),
-      //   child: const SizedBox.shrink(),
-      // ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 7.h),
+        child: const SizedBox.shrink(),
+      ),
     ]);
   }
 
@@ -123,6 +135,9 @@ class CustomDataTable extends StatelessWidget {
         },
         onLongPress: () {
           _onLongPress(context, index);
+        },
+        onDoubleTap: () {
+         
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -185,6 +200,22 @@ class CustomDataTable extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
           child: Text(params.note,
               textAlign: TextAlign.center, style: Styles.style11),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.zero,
+        child: IconButton(
+          iconSize: 20.w,
+          tooltip: 'تعديل العقد',
+          onPressed: () {
+            _updateContract(context, index);
+          },
+          icon: Icon(
+            Ionicons.create_outline,
+            color: AppColors.enabyDark,
+            size: 20.w,
+          ),
+   
         ),
       ),
     ]);

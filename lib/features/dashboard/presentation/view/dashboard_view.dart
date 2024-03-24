@@ -31,19 +31,27 @@ class DashboardView extends StatelessWidget {
                   onRefresh: () async {
                     context.dashboardCubit().loadContracts();
                   },
+                  
                   backgroundColor: AppColors.enabyDark,
                   color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(17.sp),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const TitleDataTable(),
-                        SizedBox(
-                          height: 22.h,
+                    child: CustomScrollView(
+                      shrinkWrap: true,
+                      slivers: [
+                        const SliverToBoxAdapter(
+                          child: TitleDataTable(),
                         ),
-                        const CustomDataTable(),
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 22.h,
+                          ),
+                        ),
+                        const SliverFillRemaining(
+                          child: CustomDataTable(),
+                        ),
                       ],
+                 
                     ),
                   ),
                 );

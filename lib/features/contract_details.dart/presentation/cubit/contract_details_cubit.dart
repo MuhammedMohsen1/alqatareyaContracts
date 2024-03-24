@@ -26,7 +26,7 @@ class ContractDetailsCubit extends Cubit<ContractDetailsState> {
     // Spliting the Headers
     headerDetails = HeaderDetails.fromMap(contract.toMap());
     headerDetails.toUI().forEach((key, value) {
-      if (value != null) {
+      if (value != null && value != '') {
         header.add(
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

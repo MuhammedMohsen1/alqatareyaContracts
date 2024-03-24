@@ -5,6 +5,7 @@ import 'package:alqatareyacontracts/features/create_contract/presentation/view_m
 import 'package:alqatareyacontracts/features/create_contract/presentation/views/create_contract.dart';
 import 'package:alqatareyacontracts/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:alqatareyacontracts/features/employee_modules/contract_details.dart/presentation/cubit/contract_details_employee_cubit.dart';
+import 'package:alqatareyacontracts/features/update_contract.dart/presentation/view_model/cubit/update_form_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,7 @@ import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_c
 import '../../features/employee_modules/dashboard/presentation/view/dashboard_view_employee.dart';
 import '../../features/splash_feature/splash_screen.dart';
 
+import '../../features/update_contract.dart/presentation/views/update_contract.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -45,9 +47,17 @@ class AppRouter {
           child: const DashboardEmployeeView(),
         ));
       case Routes.createContract:
+      
         return _getPageRoute(BlocProvider(
+          
           create: (context) => CreateFormCubit()..fetchStepsInformation(),
           child: CreateContract(),
+        ));
+      case Routes.updateContract:
+        FormDetails contract = settings.arguments as FormDetails;
+        return _getPageRoute(BlocProvider(
+          create: (context) => UpdateFormCubit()..loadContractDetails(contract),
+          child: UpdateContract(),
         ));
       case Routes.contractDetails:
         FormDetails contract = settings.arguments as FormDetails;

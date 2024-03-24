@@ -2,6 +2,7 @@ import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:alqatareyacontracts/features/contract_details.dart/presentation/views/widgets/contract_details_data_table.dart';
 import 'package:alqatareyacontracts/features/shared/methods/show_dialog.dart';
+import 'package:alqatareyacontracts/features/shared/methods/show_notes_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
@@ -32,7 +33,7 @@ class ContractTableDetailsWithTitle extends StatelessWidget {
             if (detailsContent != null)
             GestureDetector(
                 onTap: () {
-                  showDeatilsDialog(context, 'تفاصيل $title', detailsContent);
+                  showNotesDialog(context, 'تفاصيل $title', [detailsContent!]);
                 },
               child: Padding(
                   padding: EdgeInsets.all(4.r),

@@ -10,6 +10,7 @@ import '../../features/create_contract/presentation/view_model/cubit/create_form
 import '../../features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import '../../features/employee_modules/contract_details.dart/presentation/cubit/contract_details_employee_cubit.dart';
 import '../../features/employee_modules/dashboard/presentation/cubit/dashboard_cubit_employee.dart';
+import '../../features/update_contract.dart/presentation/view_model/cubit/update_form_cubit.dart';
 import 'enums.dart';
 
 extension MediaQueryExtension on BuildContext {
@@ -21,8 +22,8 @@ extension MediaQueryExtension on BuildContext {
 }
 
 extension NavigationExtension on BuildContext {
-  void push(String routeName, {dynamic arg}) {
-    sl<AppRouter>()
+  Future<void> push(String routeName, {dynamic arg}) async {
+    await sl<AppRouter>()
         .navigatorKey
         .currentState!
         .pushNamed(routeName, arguments: arg);
@@ -95,6 +96,10 @@ extension WidthExtension on num {
 extension ContextExtensions on BuildContext {
   CreateFormCubit createFormCubit() {
     return read<CreateFormCubit>();
+  }
+
+  UpdateFormCubit updateFormCubit() {
+    return read<UpdateFormCubit>();
   }
   LoginCubit loginCubit() {
     return read<LoginCubit>();

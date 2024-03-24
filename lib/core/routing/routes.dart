@@ -4,6 +4,7 @@ abstract class Routes {
   static const dashboard = '/dashboard';
   static const dashboardEmployee = '/dashboardEmployee';
   static const createContract = '/createContract';
+  static const updateContract = '/updateContract';
   static const contractDetails = '/contractDetails';
   static const contractDetailsEmployee = '/contractDetailsEmployee';
 }

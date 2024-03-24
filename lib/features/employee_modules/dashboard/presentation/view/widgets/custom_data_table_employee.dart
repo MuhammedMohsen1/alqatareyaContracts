@@ -17,52 +17,53 @@ class CustomDataTableEmployee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: [
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  border:
-                      Border.all(color: AppColors.borderDataTable, width: 1)),
-              child: Table(
-                border: const TableBorder(
-                  horizontalInside: BorderSide(
-                    color: AppColors.borderDataTable,
-                    width: 0.8,
-                  ),
+    return ListView(
+      children: [
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(color: AppColors.borderDataTable, width: 1)),
+            child: Table(
+              border: const TableBorder(
+                horizontalInside: BorderSide(
+                  color: AppColors.borderDataTable,
+                  width: 0.8,
                 ),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                columnWidths: const {
-                  4: FlexColumnWidth(2),
-                  3: FlexColumnWidth(0.5),
-                },
-                children: [
-                  getTitleTableRow(),
-                  ...List.generate(
-                    context.dashboardEmployeeCubit().abstractedContract.length,
-                    (index) => getTableRow(
-                        context,
-                        context
-                            .dashboardEmployeeCubit()
-                            .abstractedContract[index],
-                        index),
-                  ),
-                ],
               ),
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              columnWidths: const {
+                4: FlexColumnWidth(2),
+                3: FlexColumnWidth(0.5),
+              },
+              children: [
+                getTitleTableRow(),
+                ...List.generate(
+                  context.dashboardEmployeeCubit().abstractedContract.length,
+                  (index) => getTableRow(
+                      context,
+                      context
+                          .dashboardEmployeeCubit()
+                          .abstractedContract[index],
+                      index),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   void _onTap(BuildContext context, int index) {
     'Log'.logPrint();
-    context.push(Routes.contractDetailsEmployee,
-        arg: context.dashboardEmployeeCubit().contracts[index]);
+    context
+        .push(Routes.contractDetailsEmployee,
+            arg: context.dashboardEmployeeCubit().contracts[index])
+        .then((value) {
+      context.dashboardEmployeeCubit().loadContracts();
+    });
   }
 
   TableRow getTitleTableRow() {

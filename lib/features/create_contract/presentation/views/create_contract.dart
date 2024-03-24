@@ -7,6 +7,7 @@ import 'package:alqatareyacontracts/features/contract_details.dart/presentation/
 import 'package:alqatareyacontracts/features/create_contract/models/form_model/form_model.dart';
 import 'package:alqatareyacontracts/features/create_contract/models/form_model/steps_details.dart';
 import 'package:alqatareyacontracts/features/create_contract/presentation/view_model/cubit/create_form_cubit.dart';
+import 'package:alqatareyacontracts/features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,9 @@ import 'widgets/incremental_widget.dart';
 import 'widgets/show_input_dialog.dart';
 
 class CreateContract extends StatelessWidget {
-  CreateContract({super.key});
+  CreateContract({
+    super.key,
+  });
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -36,6 +39,7 @@ class CreateContract extends StatelessWidget {
             } else if (state is CreateFormSuccess) {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
+
               }
               showToast('تم اضافة العفد بنجاح', ToastType.info);
             }

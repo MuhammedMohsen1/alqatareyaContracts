@@ -1,71 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'colors.dart';
 
 class Styles {
-  static TextStyle style11 = const TextStyle(
+  static TextStyle style11 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 11,
+    fontSize: 11.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style12 = const TextStyle(
+  static TextStyle style12 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 12,
+    fontSize: 12.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style14 = const TextStyle(
+  static TextStyle style14 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 14,
+    fontSize: 14.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style15 = const TextStyle(
+  static TextStyle style15 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 15,
+    fontSize: 15.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style15Bold = const TextStyle(
+  static TextStyle style15Bold = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 15,
+    fontSize: 15.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style16 = const TextStyle(
+  static TextStyle style16 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style18 = const TextStyle(
+  static TextStyle style18 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w500,
   );
-  static TextStyle style20 = const TextStyle(
+  static TextStyle style20 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w400,
   );
-  static TextStyle style22 = const TextStyle(
+  static TextStyle style22 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 20,
+    fontSize: 22.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w400,
   );
-  static TextStyle style24 = const TextStyle(
+  static TextStyle style24 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 24,
+    fontSize: 24.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w400,
   );
-  static TextStyle style36 = const TextStyle(
+  static TextStyle style36 = TextStyle(
     color: AppColors.fontBlack,
-    fontSize: 36,
+    fontSize: 36.sp,
     fontFamily: 'ITHRA',
     fontWeight: FontWeight.w400,
   );

@@ -11,7 +11,7 @@ showNotesDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        surfaceTintColor: AppColors.enabyLight.withOpacity(0.1),
+        surfaceTintColor: AppColors.enabyLight.withOpacity(0.01),
         content: Form(
           key: formKey,
           child: Padding(
@@ -22,19 +22,20 @@ showNotesDialog(
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 10.h),
                   decoration: BoxDecoration(
-                      color: AppColors.enabyLight.withOpacity(0.2),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10.w),
-                        bottomRight: Radius.circular(10.w),
-                        topLeft: Radius.circular(10.w),
+                      color: AppColors.enabyLight.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10.w
                       )),
                   child: Padding(
                     padding: EdgeInsets.all(16.sp),
                     child: Text(
                       content[index],
                       textAlign: TextAlign.end,
-                      style: Styles.style12
-                        ..copyWith(backgroundColor: Colors.black),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontFamily: 'ITHRA',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 );

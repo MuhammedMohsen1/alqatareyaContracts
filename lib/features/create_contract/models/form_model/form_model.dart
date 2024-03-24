@@ -1,6 +1,7 @@
 import 'package:alqatareyacontracts/features/create_contract/models/form_model/steps_details.dart';
 
 class FormDetails {
+  String? id;
   String? contractNo;
   String? voucherNo;
   String? clientName;
@@ -30,6 +31,7 @@ class FormDetails {
   String? mandoobName;
 
   FormDetails({
+    this.id,
     this.contractNo,
     this.voucherNo,
     this.clientName,
@@ -90,13 +92,13 @@ class FormDetails {
   }
   factory FormDetails.fromMap(Map<String, dynamic> map) {
     return FormDetails(
+      id: map['id'],
       contractNo: map['contractNo'],
       voucherNo: map['voucherNo'],
       clientName: map['clientName'],
       phoneNumber: map['phoneNumber'],
       address: map['address'],
-      createDate:
-          map['createDate'] != null ? map['createDate'].toDate() : null,
+      createDate: map['createDate'] != null ? map['createDate'].toDate() : null,
       roofSteps: (map['roofSteps'] as List<dynamic>?)
           ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
           .toList(),
@@ -118,10 +120,7 @@ class FormDetails {
       na3latMamarat: map['na3latMamarat'],
       areaSanader: map['areaSanader'],
       na3latSanader: map['na3latSanader'],
-      so2otFoom: map['so2otFoom'],      
-   
-
-      
+      so2otFoom: map['so2otFoom'],
       additionalWorkSteps: (map['additionalWork'] as List<dynamic>?)
           ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
           .toList(),
@@ -155,7 +154,6 @@ class FormDetails {
       'areaSanader': areaSanader,
       'na3latSanader': na3latSanader,
       'so2otFoom': so2otFoom,
-      
       'additionalWork':
           additionalWorkSteps?.map((step) => step?.toMap()).toList(),
       'mandoobName': mandoobName,

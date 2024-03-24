@@ -33,15 +33,22 @@ class DashboardEmployeeView extends StatelessWidget {
                   },
                   child: Padding(
                     padding: EdgeInsets.all(17.sp),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const TitleDataTableEmployee(),
-                        SizedBox(
-                          height: 22.h,
+                    child: CustomScrollView(
+                      slivers: [
+                        const SliverToBoxAdapter(
+                          child: TitleDataTableEmployee(),
                         ),
-                        const CustomDataTableEmployee(),
+                        SliverToBoxAdapter(
+                          child:    
+                        SizedBox(
+                            height: 22.h,
+                          ),
+                        ),
+                        const SliverFillRemaining(
+                          child: CustomDataTableEmployee(),
+                        ),
                       ],
+                  
                     ),
                   ),
                 );

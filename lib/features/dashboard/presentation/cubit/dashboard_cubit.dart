@@ -27,8 +27,10 @@ class DashboardCubit extends Cubit<DashboardState> {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection(AppPaths.contracts).get();
       querySnapshot.docs.forEach((contract) {
+        Map<String, dynamic> data = (contract.data() as Map<String, dynamic>);
+        data['id'] = contract.id;
         FormDetails formatedContract =
-            FormDetails.fromMap(contract.data() as Map<String, dynamic>);
+            FormDetails.fromMap(data);
         contracts.add(formatedContract);
         // Spliting the abstract view
         splitAbstractContracts(formatedContract);
