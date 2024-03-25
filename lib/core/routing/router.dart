@@ -47,16 +47,19 @@ class AppRouter {
           child: const DashboardEmployeeView(),
         ));
       case Routes.createContract:
-      
+        List<FormDetails> contracts = settings.arguments as List<FormDetails>;
         return _getPageRoute(BlocProvider(
-          
-          create: (context) => CreateFormCubit()..fetchStepsInformation(),
+      
+          create: (context) =>
+              CreateFormCubit(contracts: contracts)..fetchStepsInformation(),
           child: CreateContract(),
         ));
       case Routes.updateContract:
-        FormDetails contract = settings.arguments as FormDetails;
+        (FormDetails, List<FormDetails>) pair =
+            settings.arguments as (FormDetails, List<FormDetails>);
         return _getPageRoute(BlocProvider(
-          create: (context) => UpdateFormCubit()..loadContractDetails(contract),
+          create: (context) =>
+              UpdateFormCubit(contracts: pair.$2)..loadContractDetails(pair.$1),
           child: UpdateContract(),
         ));
       case Routes.contractDetails:

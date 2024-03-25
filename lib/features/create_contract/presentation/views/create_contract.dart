@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ionicons/ionicons.dart';
+import '../../../shared/widgets/custom_update_incremental_widget copy.dart';
 import 'widgets/area_and_size_widget.dart';
 import 'widgets/create_form_header.dart';
 import 'widgets/custom_date_time_picker.dart';
@@ -36,6 +37,8 @@ class CreateContract extends StatelessWidget {
           listener: (context, state) {
             if (state is CreateFormFailure) {
               showToast('حدث خطأ', ToastType.error);
+            } else if (state is CreateFormDuplicatedContractNo) {
+              showToast('هناك بلفعل عقد بنفس الرقم', ToastType.error);
             } else if (state is CreateFormSuccess) {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
@@ -144,6 +147,22 @@ class CreateContract extends StatelessWidget {
                           context.createFormCubit().form?.address = value;
                         },
                       ),
+                      
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      FormInputWithTitle(
+                        title: 'الموقع',
+                        width: 300.w,
+                        onSave: (value) {
+                          context.createFormCubit().form.gpsLocation = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'الموقع فارغ';
+                          }
+                        },
+                      ),
                       SizedBox(
                         height: 10.h,
                       ),
@@ -170,12 +189,32 @@ class CreateContract extends StatelessWidget {
                         height: 10.h,
                       ),
                       DropDownContractWidget(
-                        onTap: (value) {
-                          context.createFormCubit().form?.roofSteps =
-                              StepsDetails.initList(value);
-                        },
+                        onTap: context.createFormCubit().updateRoofSteps,
                         items: context.createFormCubit().rooftypes!,
                       ),
+                      if (context.createFormCubit().form.roofSteps != null &&
+                          context.createFormCubit().form.roofSteps!.isNotEmpty)
+                        BlocBuilder<CreateFormCubit, CreateFormState>(
+                          buildWhen: (previous, current) {
+                            if (current is ReorderRoofStepState ||
+                                current is DeleteRoofStepState ||
+                                current is UpdateRoofsSteps) {
+                              return true;
+                            } else {
+                              return false;
+                            }
+                          },
+                          builder: (context, state) {
+                            return CustomUpdateIncrementalWidget(
+                              steps: context.createFormCubit().form!.roofSteps!,
+                              reorderValues:
+                                  context.createFormCubit().reorderRoofStep,
+                              deleteValues:
+                                  context.createFormCubit().deleteRoofStep,
+                              addValue: context.createFormCubit().addRoofSteps,
+                            );
+                          },
+                        ),
                       SizedBox(
                         height: 10.h,
                       ),
@@ -195,8 +234,9 @@ class CreateContract extends StatelessWidget {
                                 context.createFormCubit().form?.isThereBaths ??
                                     false,
                             onChange: (valueChanged) {
-                              context.createFormCubit().form?.isThereBaths =
-                                  valueChanged;
+                              context
+                                  .createFormCubit()
+                                  .checkBoxChanged(valueChanged);
                               // Saving Steps
                               context.createFormCubit().form?.bathsSteps =
                                   StepsDetails.initList(context
@@ -209,6 +249,29 @@ class CreateContract extends StatelessWidget {
                           ),
                         ],
                       ),
+                      if (context.createFormCubit().form.bathsSteps != null &&
+                          context.createFormCubit().form.bathsSteps!.isNotEmpty)
+                        BlocBuilder<CreateFormCubit, CreateFormState>(
+                          buildWhen: (previous, current) {
+                            if (current is ReorderRoofStepState ||
+                                current is DeleteRoofStepState ||
+                                current is UpdateRoofsSteps) {
+                              return true;
+                            } else {
+                              return false;
+                            }
+                          },
+                          builder: (context, state) {
+                            return CustomUpdateIncrementalWidget(
+                              steps: context.createFormCubit().form.bathsSteps!,
+                              reorderValues:
+                                  context.createFormCubit().reorderBathsStep,
+                              deleteValues:
+                                  context.createFormCubit().deleteBathsStep,
+                              addValue: context.createFormCubit().addBathStep,
+                            );
+                          },
+                        ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

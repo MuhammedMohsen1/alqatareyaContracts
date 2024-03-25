@@ -6,18 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:reorderables/reorderables.dart';
-import 'update_show_input_dialog.dart';
+import '../../update_contract.dart/presentation/views/widgets/update_show_input_dialog.dart';
 
-class UpdateIncrementalWidget extends StatefulWidget {
-  const UpdateIncrementalWidget({
+class CustomUpdateIncrementalWidget extends StatefulWidget {
+  const CustomUpdateIncrementalWidget({
     super.key,
+    required this.steps,
+    required this.reorderValues,
+    required this.deleteValues,
+    required this.addValue,
   });
-
+  final List<StepsDetails> steps;
+  final Function(int oldIndex, int newIndex) reorderValues;
+  final Function(int index) deleteValues;
+  final Function(String value) addValue;
   @override
-  State<UpdateIncrementalWidget> createState() => _IncrementalWidgetState();
+  State<CustomUpdateIncrementalWidget> createState() =>
+      _IncrementalWidgetState();
 }
 
-class _IncrementalWidgetState extends State<UpdateIncrementalWidget> {
+class _IncrementalWidgetState extends State<CustomUpdateIncrementalWidget> {
   late List<Widget> _rows;
   @override
   void initState() {
@@ -25,8 +33,9 @@ class _IncrementalWidgetState extends State<UpdateIncrementalWidget> {
   }
 
   void rebuildUI() {
+    'RebuildUI'.logPrint();
     _rows = List.generate(
-      context.updateFormCubit().contract.additionalWorkSteps?.length ?? 0,
+      widget.steps?.length ?? 0,
       (index) => Container(
         margin: EdgeInsets.all(4.w),
         key: Key('$index'),
@@ -41,11 +50,7 @@ class _IncrementalWidgetState extends State<UpdateIncrementalWidget> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    context
-                        .updateFormCubit()
-                        .contract
-                        .additionalWorkSteps!
-                        .removeAt(index);
+                    widget.deleteValues(index);
                   });
                 },
                 child: Icon(
@@ -58,11 +63,7 @@ class _IncrementalWidgetState extends State<UpdateIncrementalWidget> {
                 width: 10.w,
               ),
               Text(
-                context
-                    .updateFormCubit()
-                    .contract
-                    .additionalWorkSteps![index]
-                    .stepTitle,
+                widget.steps![index].stepTitle,
                 style: Styles.style16,
               ),
             ],
@@ -80,47 +81,27 @@ class _IncrementalWidgetState extends State<UpdateIncrementalWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            'الأعمال الاضافية',
-            style: Styles.style18,
-          ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           ReorderableColumn(
             crossAxisAlignment: CrossAxisAlignment.end,
             onReorder: (int oldIndex, int newIndex) {
-              setState(() {
-                Widget row = _rows.removeAt(oldIndex);
-                _rows.insert(newIndex, row);
-                StepsDetails stepDetails = context
-                    .updateFormCubit()
-                    .contract
-                    .additionalWorkSteps!
-                    .removeAt(oldIndex);
-                context
-                    .updateFormCubit()
-                    .contract
-                    .additionalWorkSteps!
-                    .insert(newIndex, stepDetails);
-              });
+              widget.reorderValues(oldIndex, newIndex);
             },
             children: _rows,
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           InkWell(
             onTap: () async {
               await showUpdateInputDialog(
                 context,
-                'أعمال اضافية',
-                2,
+                'اضف خطوة',
+                1,
                 (String? value) {
-                  setState(() {
-                    context.updateFormCubit().contract.additionalWorkSteps?.add(
-                        StepsDetails(stepTitle: value ?? '', isDone: false));
-                  });
+                  widget.addValue(value ?? '');
                 },
                 '',
               );

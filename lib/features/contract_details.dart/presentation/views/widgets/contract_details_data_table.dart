@@ -132,7 +132,10 @@ class ContractDetailsDataTable extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child: Text(stepDetails.notes?.last ?? '-',
+          child: Text(
+              stepDetails.isDone == false
+                  ? stepDetails.notes?.last ?? '-'
+                  : '-',
               textAlign: TextAlign.center, style: Styles.style11),
         ),
       ),

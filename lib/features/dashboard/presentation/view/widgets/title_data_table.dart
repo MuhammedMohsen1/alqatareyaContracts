@@ -34,7 +34,8 @@ class TitleDataTable extends StatelessWidget {
           width: 100.w,
           titleStyle: Styles.style15.copyWith(color: Colors.white),
           onTap: () {
-            context.push(Routes.createContract);
+            context.push(Routes.createContract,
+                arg: context.dashboardCubit().contracts);
           },
           icon: Icon(
             Icons.add,

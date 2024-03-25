@@ -7,6 +7,7 @@ class FormDetails {
   String? clientName;
   String? phoneNumber;
   String? address;
+  String? gpsLocation;
 
   DateTime? createDate;
   List<StepsDetails>? roofSteps;
@@ -37,6 +38,7 @@ class FormDetails {
     this.clientName,
     this.phoneNumber,
     this.address,
+    this.gpsLocation,
     this.createDate,
     this.roofSteps,
     this.bathsSteps,
@@ -67,7 +69,8 @@ class FormDetails {
       clientName: null,
       phoneNumber: null,
       address: null,
-      createDate: null,
+      gpsLocation: null,
+      createDate: DateTime.now(),
       roofSteps: null,
       bathsSteps: null,
       isThereBaths: null,
@@ -98,6 +101,7 @@ class FormDetails {
       clientName: map['clientName'],
       phoneNumber: map['phoneNumber'],
       address: map['address'],
+      gpsLocation: map['gpsLocation'],
       createDate: map['createDate'] != null ? map['createDate'].toDate() : null,
       roofSteps: (map['roofSteps'] as List<dynamic>?)
           ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
@@ -135,6 +139,7 @@ class FormDetails {
       'clientName': clientName,
       'phoneNumber': phoneNumber,
       'address': address,
+      'gpsLocation': gpsLocation,
       'createDate': createDate,
       'roofSteps': roofSteps?.map((step) => step.toMap()).toList(),
       'bathsSteps': bathsSteps?.map((step) => step.toMap()).toList(),

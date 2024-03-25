@@ -29,14 +29,14 @@ class DashboardCubit extends Cubit<DashboardState> {
       querySnapshot.docs.forEach((contract) {
         Map<String, dynamic> data = (contract.data() as Map<String, dynamic>);
         data['id'] = contract.id;
-        FormDetails formatedContract =
-            FormDetails.fromMap(data);
+        FormDetails formatedContract = FormDetails.fromMap(data);
         contracts.add(formatedContract);
         // Spliting the abstract view
         splitAbstractContracts(formatedContract);
       });
       loadNotAdminUsers();
       'Success'.logPrint();
+      sortAlgorithm();
       emit(DashboardSuccess());
     } catch (e) {
       emit(DashboardFailure());
@@ -60,6 +60,13 @@ class DashboardCubit extends Cubit<DashboardState> {
         getTheLastestNoteAndStatus(contract);
     abstractedContract.add(DashboardRowParams(contract.contractNo ?? 'فارغ',
         status, contract.createDate, latestNote));
+  }
+
+  void sortAlgorithm() {
+    contracts.sort(
+        (first, second) => second.createDate!.compareTo(first.createDate!));
+    abstractedContract.sort(
+        (first, second) => second.createdDate!.compareTo(first.createdDate!));
   }
 
   // This is Log(N) algorithm
@@ -109,7 +116,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     else if (isDoneHigher == false && isDoneLower == true) {
       status = ContractStatus.STARTED;
     } else {
-      ContractStatus.FINISHED;
+      status = ContractStatus.FINISHED;
     }
     return (latestNote, status);
   }

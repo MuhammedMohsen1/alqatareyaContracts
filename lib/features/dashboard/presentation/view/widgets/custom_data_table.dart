@@ -72,7 +72,10 @@ class CustomDataTable extends StatelessWidget {
     'Log'.logPrint();
     context
         .push(Routes.updateContract,
-            arg: context.dashboardCubit().contracts[index])
+            arg: (
+      context.dashboardCubit().contracts[index],
+      context.dashboardCubit().contracts
+    ))
         .then((value) {
       context.dashboardCubit().loadContracts();
     });

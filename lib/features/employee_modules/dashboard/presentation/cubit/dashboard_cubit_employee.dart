@@ -28,14 +28,12 @@ class DashboardEmployeeCubit extends Cubit<DashboardEmployeeState> {
       querySnapshot.docs.forEach((contract) {
         Map<String, dynamic> data = (contract.data() as Map<String, dynamic>);
         data['id'] = contract.id;
-        FormDetails formatedContract =
-            FormDetails.fromMap(data);
+        FormDetails formatedContract = FormDetails.fromMap(data);
 
-        contracts.add(formatedContract);
         // Spliting the abstract view
         splitAbstractContracts(formatedContract);
       });
-
+      sortAlgorithm();
       'Success'.logPrint();
       emit(DashboardEmployeeSuccess());
     } catch (e) {
@@ -43,16 +41,28 @@ class DashboardEmployeeCubit extends Cubit<DashboardEmployeeState> {
     }
   }
 
+  void sortAlgorithm() {
+    contracts.sort(
+        (first, second) => second.createDate!.compareTo(first.createDate!));
+    abstractedContract.sort(
+        (first, second) => second.createdDate!.compareTo(first.createdDate!));
+  }
+
   void splitAbstractContracts(FormDetails contract) {
     var (String latestNote, ContractStatus status) =
         getTheLastestNoteAndStatus(contract);
-    abstractedContract.add(DashboardRowParams(contract.contractNo ?? 'فارغ',
-        status, contract.createDate, latestNote));
+    if (status != ContractStatus.FINISHED) {
+      contracts.add(contract);
+
+      abstractedContract.add(DashboardRowParams(contract.contractNo ?? 'فارغ',
+          status, contract.createDate, latestNote));
+    }
   }
 
   // This is Log(N) algorithm
   // this return the latest note in the steps for each contract which is alot of work
   (String, ContractStatus) getTheLastestNoteAndStatus(FormDetails contract) {
+    contract.contractNo.toString().logPrint();
     // LocalVariables to be used in this func
     String latestNote = '-';
     DateTime lowestDate = DateTime(2000);
@@ -111,7 +121,7 @@ class DashboardEmployeeCubit extends Cubit<DashboardEmployeeState> {
     else if (isDoneHigher == false && isDoneLower == true) {
       status = ContractStatus.STARTED;
     } else {
-      ContractStatus.FINISHED;
+      status = ContractStatus.FINISHED;
     }
     return (latestNote, status);
   }

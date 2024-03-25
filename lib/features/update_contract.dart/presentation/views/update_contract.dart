@@ -6,6 +6,7 @@ import 'package:alqatareyacontracts/core/widgets/custom_button.dart';
 import 'package:alqatareyacontracts/features/contract_details.dart/presentation/views/widgets/custom_check_box.dart';
 import 'package:alqatareyacontracts/features/create_contract/models/form_model/steps_details.dart';
 import 'package:alqatareyacontracts/features/update_contract.dart/presentation/view_model/cubit/update_form_cubit.dart';
+import 'package:alqatareyacontracts/features/shared/widgets/custom_update_incremental_widget%20copy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,6 +34,8 @@ class UpdateContract extends StatelessWidget {
           listener: (context, state) {
             if (state is UpdateFormFailure || state is DeleteFormFailure) {
               showToast('حدث خطأ', ToastType.error);
+            } else if (state is UpdateDuplicatedContractNo) {
+              showToast('هناك بلفعل عقد بنفس الرقم', ToastType.error);
             } else if (state is UpdateFormSuccess) {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
@@ -158,6 +161,23 @@ class UpdateContract extends StatelessWidget {
                       SizedBox(
                         height: 10.h,
                       ),
+                      UpdateFormInputWithTitle(
+                        title: 'الموقع',
+                        width: 300.w,
+                        content: context.updateFormCubit().contract.gpsLocation,
+                        onSave: (value) {
+                          context.updateFormCubit().contract.gpsLocation =
+                              value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'الموقع فارغ';
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       Text(
                         'تاريخ',
                         style: Styles.style18,
@@ -181,13 +201,52 @@ class UpdateContract extends StatelessWidget {
                       SizedBox(
                         height: 10.h,
                       ),
-                      UpdateDropDownContractWidget(
-                        onTap: (value) {
-                          context.updateFormCubit().contract.roofSteps =
-                              StepsDetails.initList(value);
+                      BlocBuilder<UpdateFormCubit, UpdateFormState>(
+                        buildWhen: (previous, current) {
+                          if (current is UpdateRoofsSteps) {
+                            return true;
+                          } else {
+                            return false;
+                          }
                         },
-                        items: context.updateFormCubit().rooftypes!,
+                        builder: (context, state) {
+                          return UpdateDropDownContractWidget(
+                            onTap: (value) {
+                              context.updateFormCubit().updateRoofSteps(value);
+                            },
+                            items: context.updateFormCubit().rooftypes!,
+                          );
+                        },
                       ),
+                      if (context.updateFormCubit().contract.roofSteps !=
+                              null &&
+                          context
+                              .updateFormCubit()
+                              .contract
+                              .roofSteps!
+                              .isNotEmpty)
+                        BlocBuilder<UpdateFormCubit, UpdateFormState>(
+                          buildWhen: (previous, current) {
+                            if (current is ReorderRoofStepState ||
+                                current is DeleteRoofStepState ||
+                                current is UpdateRoofsSteps) {
+                              return true;
+                            } else {
+                              return false;
+                            }
+                          },
+                          builder: (context, state) {
+                            return CustomUpdateIncrementalWidget(
+                              steps:
+                                  context.updateFormCubit().contract.roofSteps!,
+                              reorderValues:
+                                  context.updateFormCubit().reorderRoofStep,
+                              deleteValues:
+                                  context.updateFormCubit().deleteRoofStep,
+                              addValue: context.updateFormCubit().addRoofSteps,
+                            );
+                          },
+                        ),
                       SizedBox(
                         height: 10.h,
                       ),
@@ -209,8 +268,9 @@ class UpdateContract extends StatelessWidget {
                                     .isThereBaths ??
                                 false,
                             onChange: (valueChanged) {
-                              context.updateFormCubit().contract.isThereBaths =
-                                  valueChanged;
+                              context
+                                  .updateFormCubit()
+                                  .checkBoxChanged(valueChanged);
                               // Saving Steps
                               context.updateFormCubit().contract.bathsSteps =
                                   StepsDetails.initList(context
@@ -223,6 +283,50 @@ class UpdateContract extends StatelessWidget {
                           ),
                         ],
                       ),
+                      if (context.updateFormCubit().contract.isThereBaths ==
+                              true &&
+                          context
+                              .updateFormCubit()
+                              .contract
+                              .bathsSteps!
+                              .isNotEmpty)
+                        BlocBuilder<UpdateFormCubit, UpdateFormState>(
+                          buildWhen: (previous, current) {
+                            if (current is ReorderBathStepState ||
+                                current is DeleteBathStepState ||
+                                current is UpdateBathsSteps) {
+                              return true;
+                            } else {
+                              return false;
+                            }
+                          },
+                          builder: (context, state) {
+                            if (context
+                                    .updateFormCubit()
+                                    .contract
+                                    .bathsSteps!
+                                    .isNotEmpty &&
+                                context
+                                        .updateFormCubit()
+                                        .contract
+                                        .isThereBaths ==
+                                    true) {
+                              return CustomUpdateIncrementalWidget(
+                                steps: context
+                                    .updateFormCubit()
+                                    .contract
+                                    .bathsSteps!,
+                                reorderValues:
+                                    context.updateFormCubit().reorderBathsStep,
+                                deleteValues:
+                                    context.updateFormCubit().deleteBathsStep,
+                                addValue: context.updateFormCubit().addBathStep,
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          },
+                        ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

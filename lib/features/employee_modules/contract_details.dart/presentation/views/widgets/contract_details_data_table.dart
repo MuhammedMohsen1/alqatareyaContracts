@@ -176,7 +176,10 @@ class _ContractDetailsDataTableEmployeeState
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
-          child: Text(widget.stepsDetails[index].notes?.last ?? '-',
+          child: Text(
+              widget.stepsDetails[index].isDone
+                  ? widget.stepsDetails[index].notes?.last ?? '-'
+                  : '-',
               textAlign: TextAlign.center, style: Styles.style11),
         ),
       ),

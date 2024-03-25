@@ -1,9 +1,13 @@
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
+import 'package:alqatareyacontracts/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../core/utils/flutter_toast_message.dart';
 import '../../../../create_contract/models/form_model/steps_details.dart';
 import '../../../../create_contract/presentation/views/widgets/create_form_header.dart';
 import '../cubit/contract_details_employee_cubit.dart';
@@ -45,6 +49,44 @@ class ContractDetailsEmployeeView extends StatelessWidget {
                           crossAxisCount: 2,
                           children:
                               context.contractDetailsCubitEmployee().header),
+                      if (context
+                              .contractDetailsCubitEmployee()
+                              .contract
+                              .gpsLocation !=
+                          null)
+                        Row(
+                          children: [
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () async {
+                                final Uri _url = Uri.parse(context
+                                    .contractDetailsCubitEmployee()
+                                    .contract
+                                    .gpsLocation!);
+                                if (!await launchUrl(_url)) {
+                                  showToast(
+                                      'حدث خطأ اثناء فتح الخريطة برجاء المحاولة لاحقا',
+                                      ToastType.error);
+                                }
+                              },
+                              child: Padding(
+                                  padding: EdgeInsets.all(4.r),
+                                  child: Icon(
+                                    Ionicons.location_outline,
+                                    color: AppColors.enabyDark,
+                                    size: 24.w,
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              'الموقع الجعرافى',
+                              style:
+                                  Styles.style18.copyWith(color: Colors.black),
+                            ),
+                          ],
+                        ),
                       if (context
                               .contractDetailsCubitEmployee()
                               .contract
