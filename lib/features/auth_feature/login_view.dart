@@ -28,7 +28,6 @@ class LoginView extends StatelessWidget {
             } else {
               showToast('حدث خطأ برجاء المحاولة لاحقاً', ToastType.error);
             }
-         
           } else if (state is LoginFailure) {
             showToast('برجاء التاكد من كلمة السر و البريد الالكترونى',
                 ToastType.error);
@@ -77,7 +76,7 @@ class LoginView extends StatelessWidget {
                                   title: 'البريد الالكترونى',
                                   prefixIcon: Icon(
                                     Icons.person,
-                                    size: 24.w,
+                                    size: 30.r,
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -99,7 +98,7 @@ class LoginView extends StatelessWidget {
                                   title: 'كلمة المرور',
                                   prefixIcon: Icon(
                                     Icons.lock,
-                                    size: 24.w,
+                                    size: 30.r,
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {

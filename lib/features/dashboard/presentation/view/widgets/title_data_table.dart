@@ -40,10 +40,10 @@ class TitleDataTable extends StatelessWidget {
           icon: Icon(
             Icons.add,
             color: Colors.white,
-            size: 18.w,
+            size: 30.r,
           ),
         ),
-        
+
         SizedBox(
           width: 10.w,
         ),

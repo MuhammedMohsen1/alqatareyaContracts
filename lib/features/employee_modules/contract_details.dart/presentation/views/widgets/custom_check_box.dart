@@ -21,16 +21,16 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       value: widget.value,
       onChanged: (value) {
         if (widget.isDisabled != true) {
-        setState(() {
-          widget.value = value!;
-          if (widget.onChange != null) {
-            widget.onChange!(value);
-          }
-        });
+          setState(() {
+            widget.value = value!;
+            if (widget.onChange != null) {
+              widget.onChange!(value);
+            }
+          });
         }
       },
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.w),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       side: const BorderSide(color: Colors.grey, width: 1),

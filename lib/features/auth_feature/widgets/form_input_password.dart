@@ -67,12 +67,12 @@ class _FormInputPasswordState extends State<FormInputPassword> {
                         ? Icon(
                             Icons.visibility,
                             color: const Color(0xFF6A6A6A),
-                            size: 20.w,
+                            size: 30.r,
                           )
                         : Icon(
                             Icons.visibility_off,
                             color: const Color(0xFF6A6A6A),
-                            size: 20.w,
+                            size: 30.r,
                           ),
                   ),
                 )),

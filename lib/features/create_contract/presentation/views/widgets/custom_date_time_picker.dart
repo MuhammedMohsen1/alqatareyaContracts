@@ -54,7 +54,7 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
             icon: Icon(
               Ionicons.calendar_number_outline,
               color: AppColors.enabyDark,
-              size: 24.w,
+              size: 30.r,
             )),
         SizedBox(
           width: 16.w,
@@ -70,9 +70,7 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
             child: Text(
-            
               dateTime != null ? formatDate(dateTime!) : '-',
-       
               textAlign: TextAlign.end,
               style: Styles.style14.copyWith(
                 color: Colors.black,
@@ -84,6 +82,7 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
     );
   }
 }
+
 String formatDate(DateTime dateTime) {
   // Create a DateFormat object with the desired format
   final DateFormat formatter = DateFormat('dd/MM/yyyy');

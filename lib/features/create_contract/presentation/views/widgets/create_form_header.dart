@@ -14,8 +14,8 @@ class CreateFormHeader extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 70.w,
-          height: 70.w,
+          width: 70.r,
+          height: 70.r,
           child: Image.asset('assets/images/logo.png'),
         ),
         Spacer(),
@@ -31,14 +31,14 @@ class CreateFormHeader extends StatelessWidget {
                 color: AppColors.enabyDark,
                 width: 0.8,
               ),
-              borderRadius: BorderRadius.circular(3.sp),
+              borderRadius: BorderRadius.circular(3.r),
             ),
             child: Padding(
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(9.r),
               child: Icon(
                 Ionicons.chevron_forward_outline,
                 color: AppColors.enabyDark,
-                size: 30.w,
+                size: 30.r,
               ),
             ),
           ),

@@ -61,7 +61,8 @@ class CustomDataTable extends StatelessWidget {
 
   void _onTap(BuildContext context, int index) {
     'Log'.logPrint();
-    context.push(Routes.contractDetails,
+    context
+        .push(Routes.contractDetails,
             arg: context.dashboardCubit().contracts[index])
         .then((value) {
       context.dashboardCubit().loadContracts();
@@ -70,13 +71,10 @@ class CustomDataTable extends StatelessWidget {
 
   void _updateContract(BuildContext context, int index) {
     'Log'.logPrint();
-    context
-        .push(Routes.updateContract,
-            arg: (
+    context.push(Routes.updateContract, arg: (
       context.dashboardCubit().contracts[index],
       context.dashboardCubit().contracts
-    ))
-        .then((value) {
+    )).then((value) {
       context.dashboardCubit().loadContracts();
     });
   }
@@ -139,9 +137,7 @@ class CustomDataTable extends StatelessWidget {
         onLongPress: () {
           _onLongPress(context, index);
         },
-        onDoubleTap: () {
-         
-        },
+        onDoubleTap: () {},
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: 12.h,
@@ -216,9 +212,8 @@ class CustomDataTable extends StatelessWidget {
           icon: Icon(
             Ionicons.create_outline,
             color: AppColors.enabyDark,
-            size: 20.w,
+            size: 30.r,
           ),
-   
         ),
       ),
     ]);

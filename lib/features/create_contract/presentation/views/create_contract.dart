@@ -42,7 +42,6 @@ class CreateContract extends StatelessWidget {
             } else if (state is CreateFormSuccess) {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
-
               }
               showToast('تم اضافة العفد بنجاح', ToastType.info);
             }
@@ -147,7 +146,6 @@ class CreateContract extends StatelessWidget {
                           context.createFormCubit().form?.address = value;
                         },
                       ),
-                      
                       SizedBox(
                         height: 10.h,
                       ),

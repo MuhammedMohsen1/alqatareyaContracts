@@ -86,6 +86,7 @@ class _IncrementalWidgetState extends State<CustomUpdateIncrementalWidget> {
           ),
           ReorderableColumn(
             crossAxisAlignment: CrossAxisAlignment.end,
+            ignorePrimaryScrollController: true,
             onReorder: (int oldIndex, int newIndex) {
               widget.reorderValues(oldIndex, newIndex);
             },

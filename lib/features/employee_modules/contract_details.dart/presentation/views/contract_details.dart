@@ -74,7 +74,7 @@ class ContractDetailsEmployeeView extends StatelessWidget {
                                   child: Icon(
                                     Ionicons.location_outline,
                                     color: AppColors.enabyDark,
-                                    size: 24.w,
+                                    size: 30.r,
                                   )),
                             ),
                             SizedBox(
