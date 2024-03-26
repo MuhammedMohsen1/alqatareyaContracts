@@ -7,7 +7,7 @@ class FormDetails {
   String? clientName;
   String? phoneNumber;
   String? address;
-  String? gpsLocation;
+  GpsLocation? gpsLocation;
 
   DateTime? createDate;
   List<StepsDetails>? roofSteps;
@@ -69,7 +69,7 @@ class FormDetails {
       clientName: null,
       phoneNumber: null,
       address: null,
-      gpsLocation: null,
+      gpsLocation: GpsLocation.initNull(),
       createDate: DateTime.now(),
       roofSteps: null,
       bathsSteps: null,
@@ -101,7 +101,9 @@ class FormDetails {
       clientName: map['clientName'],
       phoneNumber: map['phoneNumber'],
       address: map['address'],
-      gpsLocation: map['gpsLocation'],
+      gpsLocation: map['gpsLocation'] != null
+          ? GpsLocation.fromMap(map['gpsLocation'])
+          : GpsLocation.initNull(),
       createDate: map['createDate'] != null ? map['createDate'].toDate() : null,
       roofSteps: (map['roofSteps'] as List<dynamic>?)
           ?.map((stepDetail) => StepsDetails.fromMap(stepDetail))
@@ -139,7 +141,8 @@ class FormDetails {
       'clientName': clientName,
       'phoneNumber': phoneNumber,
       'address': address,
-      'gpsLocation': gpsLocation,
+      'gpsLocation':
+          gpsLocation != null ? gpsLocation!.toMap() : GpsLocation.initNull(),
       'createDate': createDate,
       'roofSteps': roofSteps?.map((step) => step.toMap()).toList(),
       'bathsSteps': bathsSteps?.map((step) => step.toMap()).toList(),
@@ -160,7 +163,7 @@ class FormDetails {
       'na3latSanader': na3latSanader,
       'so2otFoom': so2otFoom,
       'additionalWork':
-          additionalWorkSteps?.map((step) => step?.toMap()).toList(),
+          additionalWorkSteps?.map((step) => step.toMap()).toList(),
       'mandoobName': mandoobName,
     };
   }
@@ -183,5 +186,35 @@ class TypeContract {
     return {
       title: steps,
     };
+  }
+}
+
+class GpsLocation {
+  String? googleMaps;
+  String? kuwaitFinder;
+
+  GpsLocation({this.googleMaps, this.kuwaitFinder});
+
+  // Convert GpsLocation object to a map
+  Map<String, dynamic> toMap() {
+    return {
+      'googleMaps': googleMaps,
+      'kuwaitFinder': kuwaitFinder,
+    };
+  }
+
+  // Create a GpsLocation object from a map
+  static GpsLocation fromMap(Map<String, dynamic> map) {
+    return GpsLocation(
+      googleMaps: map['googleMaps'],
+      kuwaitFinder: map['kuwaitFinder'],
+    );
+  }
+
+  static GpsLocation initNull() {
+    return GpsLocation(
+      googleMaps: null,
+      kuwaitFinder: null,
+    );
   }
 }

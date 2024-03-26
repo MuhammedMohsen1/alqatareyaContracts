@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -31,24 +33,33 @@ class DashboardEmployeeView extends StatelessWidget {
                   onRefresh: () async {
                     context.dashboardEmployeeCubit().loadContracts();
                   },
-                  child: Padding(
-                    padding: EdgeInsets.all(17.sp),
-                    child: CustomScrollView(
-                      slivers: [
-                        const SliverToBoxAdapter(
-                          child: TitleDataTableEmployee(),
-                        ),
-                        SliverToBoxAdapter(
-                          child:    
-                        SizedBox(
-                            height: 22.h,
+                  backgroundColor: AppColors.enabyDark,
+                  color: Colors.white,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(17.sp),
+                      child: CustomScrollView(
+                        shrinkWrap: true,
+                        slivers: [
+                          const SliverToBoxAdapter(
+                            child: TitleDataTableEmployee(),
                           ),
-                        ),
-                        const SliverFillRemaining(
-                          child: CustomDataTableEmployee(),
-                        ),
-                      ],
-                  
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 22.h,
+                            ),
+                          ),
+                          const SliverFillRemaining(
+                            child: CustomDataTableEmployee(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

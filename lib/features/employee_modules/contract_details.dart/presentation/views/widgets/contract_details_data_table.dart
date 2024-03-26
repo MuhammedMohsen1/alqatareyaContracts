@@ -139,7 +139,11 @@ class _ContractDetailsDataTableEmployeeState
         onChange: (value) {
           setState(() {
             widget.stepsDetails[index].isDone = value;
-            widget.stepsDetails[index].date = DateTime.now();
+            if (value == true) {
+              widget.stepsDetails[index].date = DateTime.now();
+            } else {
+              widget.stepsDetails[index].date = null;
+            }
             onChange();
           });
         },
@@ -180,7 +184,8 @@ class _ContractDetailsDataTableEmployeeState
               widget.stepsDetails[index].isDone
                   ? widget.stepsDetails[index].notes?.last ?? '-'
                   : '-',
-              textAlign: TextAlign.center, style: Styles.style11),
+              textAlign: TextAlign.center,
+              style: Styles.style11),
         ),
       ),
     ]);

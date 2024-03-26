@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -31,27 +33,33 @@ class DashboardView extends StatelessWidget {
                   onRefresh: () async {
                     context.dashboardCubit().loadContracts();
                   },
-                  
                   backgroundColor: AppColors.enabyDark,
                   color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.all(17.sp),
-                    child: CustomScrollView(
-                      shrinkWrap: true,
-                      slivers: [
-                        const SliverToBoxAdapter(
-                          child: TitleDataTable(),
-                        ),
-                        SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 22.h,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(17.sp),
+                      child: CustomScrollView(
+                        shrinkWrap: true,
+                        slivers: [
+                          const SliverToBoxAdapter(
+                            child: TitleDataTable(),
                           ),
-                        ),
-                        const SliverFillRemaining(
-                          child: CustomDataTable(),
-                        ),
-                      ],
-                 
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 22.h,
+                            ),
+                          ),
+                          const SliverFillRemaining(
+                            child: CustomDataTable(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

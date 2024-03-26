@@ -83,17 +83,12 @@ class _IncrementalWidgetState extends State<IncrementalWidget> {
               await showInputDialog(
                 context,
                 'أعمال اضافية',
-                2,
+                1,
                 (String? value) {
                   setState(() {
-                    context
-                        .createFormCubit()
-                        .form
-                        ?.additionalWorkSteps
-                        ?.add(
+                    context.createFormCubit().form?.additionalWorkSteps?.add(
                         StepsDetails(stepTitle: value ?? '', isDone: false));
                   });
-
                 },
                 '',
               );

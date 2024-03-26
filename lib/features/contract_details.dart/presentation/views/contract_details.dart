@@ -46,31 +46,80 @@ class ContractDetailsView extends StatelessWidget {
                           childAspectRatio: 16.h,
                           crossAxisCount: 2,
                           children: context.contractDetailsCubit().header),
-                      if (context.contractDetailsCubit().contract.gpsLocation !=
-                          null)
+                      if (context
+                                  .contractDetailsCubit()
+                                  .contract
+                                  .gpsLocation
+                                  ?.googleMaps !=
+                              null ||
+                          context
+                                  .contractDetailsCubit()
+                                  .contract
+                                  .gpsLocation
+                                  ?.kuwaitFinder !=
+                              null)
                         Row(
                           children: [
                             const Spacer(),
-                            GestureDetector(
-                              onTap: () async {
-                                final Uri _url = Uri.parse(context
+                            if (context
                                     .contractDetailsCubit()
                                     .contract
-                                    .gpsLocation!);
-                                if (!await launchUrl(_url)) {
-                                  showToast(
-                                      'حدث خطأ اثناء فتح الخريطة برجاء المحاولة لاحقا',
-                                      ToastType.error);
-                                }
-                              },
-                              child: Padding(
+                                    .gpsLocation
+                                    ?.kuwaitFinder !=
+                                null)
+                              GestureDetector(
+                                onTap: () async {
+                                  final Uri _url = Uri.parse(context
+                                      .contractDetailsCubit()
+                                      .contract
+                                      .gpsLocation!
+                                      .kuwaitFinder!);
+                                  if (!await launchUrl(_url)) {
+                                    showToast(
+                                        'حدث خطأ اثناء فتح الخريطة برجاء المحاولة لاحقا',
+                                        ToastType.error);
+                                  }
+                                },
+                                child: Padding(
                                   padding: EdgeInsets.all(4.r),
-                                  child: Icon(
-                                    Ionicons.location_outline,
-                                    color: AppColors.enabyDark,
-                                    size: 24.w,
-                                  )),
+                                  child: SizedBox(
+                                      width: 80.r,
+                                      height: 80.r,
+                                      child: Image.asset(
+                                          'assets/images/kuwait.png',
+                                          fit: BoxFit.fitWidth)),
+                                ),
+                              ),
+                            SizedBox(
+                              width: 10.w,
                             ),
+                            if (context
+                                    .contractDetailsCubit()
+                                    .contract
+                                    .gpsLocation
+                                    ?.googleMaps !=
+                                null)
+                              GestureDetector(
+                                onTap: () async {
+                                  final Uri _url = Uri.parse(context
+                                      .contractDetailsCubit()
+                                      .contract
+                                      .gpsLocation!
+                                      .googleMaps!);
+                                  if (!await launchUrl(_url)) {
+                                    showToast(
+                                        'حدث خطأ اثناء فتح الخريطة برجاء المحاولة لاحقا',
+                                        ToastType.error);
+                                  }
+                                },
+                                child: Padding(
+                                    padding: EdgeInsets.all(4.r),
+                                    child: Icon(
+                                      Ionicons.location_outline,
+                                      color: AppColors.enabyDark,
+                                      size: 40.r,
+                                    )),
+                              ),
                             SizedBox(
                               width: 10.w,
                             ),

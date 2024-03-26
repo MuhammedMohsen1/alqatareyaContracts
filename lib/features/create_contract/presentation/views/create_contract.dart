@@ -150,10 +150,33 @@ class CreateContract extends StatelessWidget {
                         height: 10.h,
                       ),
                       FormInputWithTitle(
-                        title: 'الموقع',
+                        title: 'موقع (جوجل)',
                         width: 300.w,
                         onSave: (value) {
-                          context.createFormCubit().form.gpsLocation = value;
+                          context
+                              .createFormCubit()
+                              .form
+                              .gpsLocation
+                              ?.googleMaps = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'الموقع فارغ';
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      FormInputWithTitle(
+                        title: 'موقع (كويت فايندر)',
+                        width: 300.w,
+                        onSave: (value) {
+                          context
+                              .createFormCubit()
+                              .form
+                              .gpsLocation
+                              ?.kuwaitFinder = value;
                         },
                         validator: (value) {
                           if (value!.isEmpty) {

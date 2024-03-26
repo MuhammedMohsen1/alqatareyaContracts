@@ -162,12 +162,43 @@ class UpdateContract extends StatelessWidget {
                         height: 10.h,
                       ),
                       UpdateFormInputWithTitle(
-                        title: 'الموقع',
+                        title: 'الموقع (جوجل)',
                         width: 300.w,
-                        content: context.updateFormCubit().contract.gpsLocation,
+                        content: context
+                            .updateFormCubit()
+                            .contract
+                            .gpsLocation
+                            ?.googleMaps,
                         onSave: (value) {
-                          context.updateFormCubit().contract.gpsLocation =
-                              value;
+                          context
+                              .updateFormCubit()
+                              .contract
+                              .gpsLocation
+                              ?.googleMaps = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'الموقع فارغ';
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      UpdateFormInputWithTitle(
+                        title: 'الموقع (كويت فايندر)',
+                        width: 300.w,
+                        content: context
+                            .updateFormCubit()
+                            .contract
+                            .gpsLocation
+                            ?.kuwaitFinder,
+                        onSave: (value) {
+                          context
+                              .updateFormCubit()
+                              .contract
+                              .gpsLocation
+                              ?.kuwaitFinder = value;
                         },
                         validator: (value) {
                           if (value!.isEmpty) {

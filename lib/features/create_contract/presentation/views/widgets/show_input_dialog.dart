@@ -13,6 +13,7 @@ showInputDialog(BuildContext context, String title, int maxlines,
     builder: (BuildContext context) {
       return AlertDialog(
         surfaceTintColor: AppColors.enabyLight.withOpacity(0.2),
+        elevation: 2,
         content: Form(
           key: formKey,
           child: Padding(
@@ -22,14 +23,13 @@ showInputDialog(BuildContext context, String title, int maxlines,
               children: <Widget>[
                 FormInputWithTitle(
                   title: title,
-                  width: 800.w,
+                  width: 300.w,
                   maxLines: maxlines,
                   onSave: (String? value) {
                     if (onSaveValue != null) {
                       onSaveValue(value);
                     }
                   },
-     
                   content: content,
                 ),
               ],
