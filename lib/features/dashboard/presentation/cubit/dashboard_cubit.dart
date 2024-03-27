@@ -34,10 +34,17 @@ class DashboardCubit extends Cubit<DashboardState> {
         // Spliting the abstract view
         splitAbstractContracts(formatedContract);
       });
+      if (contracts.isEmpty) {
+        emit(NoContractsFoundState());
+      } else {
+
+
       loadNotAdminUsers();
       'Success'.logPrint();
       sortAlgorithm();
+
       emit(DashboardSuccess());
+      }
     } catch (e) {
       emit(DashboardFailure());
     }

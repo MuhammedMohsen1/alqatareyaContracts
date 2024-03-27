@@ -1,3 +1,4 @@
+import 'package:alqatareyacontracts/core/cache/cahce_utils.dart';
 import 'package:alqatareyacontracts/core/utils/app_extensions.dart';
 import 'package:alqatareyacontracts/core/utils/colors.dart';
 import 'package:alqatareyacontracts/core/utils/styles.dart';
@@ -136,13 +137,19 @@ class _ContractDetailsDataTableEmployeeState
       CustomCheckBox(
         value: widget.stepsDetails[index].isDone,
         isDisabled: checkisDisabled,
-        onChange: (value) {
+        onChange: (value) async {
+          String mandoobName = await CacheUtils.getUserName();
           setState(() {
-            widget.stepsDetails[index].isDone = value;
             if (value == true) {
+              widget.stepsDetails[index].isDone = value;
               widget.stepsDetails[index].date = DateTime.now();
+              widget.stepsDetails[index].manddobName = mandoobName;
             } else {
-              widget.stepsDetails[index].date = null;
+              if (mandoobName == widget.stepsDetails[index].manddobName) {
+                widget.stepsDetails[index].isDone = value;
+                widget.stepsDetails[index].date = null;
+                widget.stepsDetails[index].manddobName = null;
+              }
             }
             onChange();
           });

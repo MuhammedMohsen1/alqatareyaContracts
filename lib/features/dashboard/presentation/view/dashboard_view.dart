@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../shared/animations/no_doc_widget.dart';
 import '../../../shared/widgets/failure_widget.dart';
 import '../cubit/dashboard_cubit.dart';
 import 'widgets/custom_data_table.dart';
@@ -65,6 +66,23 @@ class DashboardView extends StatelessWidget {
                 );
               case DashboardFailure():
                 return const FailureWidget();
+              case NoContractsFoundState():
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      context.dashboardCubit().loadContracts();
+                    },
+                    backgroundColor: AppColors.enabyDark,
+                    color: Colors.white,
+                    child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(
+                          dragDevices: {
+                            PointerDeviceKind.touch,
+                            PointerDeviceKind.mouse,
+                          },
+                        ),
+                        child: const noDocWidget(
+                          isAdmin: true,
+                        )));
             }
           },
         ),

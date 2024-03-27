@@ -2,6 +2,7 @@ class StepsDetails {
   String stepTitle;
   DateTime? date;
   bool isDone;
+  String? manddobName;
   List<String>? notes;
 
   StepsDetails({
@@ -9,6 +10,7 @@ class StepsDetails {
     this.date,
     required this.isDone,
     this.notes,
+      this.manddobName
   });
 
   // Convert StepsDetails object to a Map
@@ -18,6 +20,7 @@ class StepsDetails {
       'date': date, // Convert DateTime to milliseconds
       'isDone': isDone,
       'notes': notes,
+      'manddobName': manddobName,
     };
   }
 
@@ -35,6 +38,7 @@ class StepsDetails {
       date: null,
       isDone: false,
       notes: null,
+      manddobName: '',
     );
   }
 
@@ -45,6 +49,7 @@ class StepsDetails {
       date: map['date'] != null ? map['date'].toDate() : null,
       isDone: map['isDone'] ?? false,
       notes: map['notes'] != null ? List<String>.from(map['notes']) : null,
+      manddobName: map['manddobName'],
     );
   }
 }

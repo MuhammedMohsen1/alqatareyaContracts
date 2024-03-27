@@ -102,7 +102,11 @@ class CreateFormCubit extends Cubit<CreateFormState> {
   }
 
   void addRoofSteps(String value) {
-    form?.roofSteps?.add(StepsDetails(stepTitle: value, isDone: false));
+
+    form?.roofSteps?.add(StepsDetails(
+      stepTitle: value,
+      isDone: false,
+    ));
 
     emit(UpdateRoofsSteps());
   }

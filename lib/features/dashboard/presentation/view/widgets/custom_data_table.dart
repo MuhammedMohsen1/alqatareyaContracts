@@ -60,7 +60,7 @@ class CustomDataTable extends StatelessWidget {
   }
 
   void _onTap(BuildContext context, int index) {
-    'Log'.logPrint();
+
     context
         .push(Routes.contractDetails,
             arg: context.dashboardCubit().contracts[index])
@@ -70,7 +70,7 @@ class CustomDataTable extends StatelessWidget {
   }
 
   void _updateContract(BuildContext context, int index) {
-    'Log'.logPrint();
+
     context.push(Routes.updateContract, arg: (
       context.dashboardCubit().contracts[index],
       context.dashboardCubit().contracts
@@ -80,7 +80,7 @@ class CustomDataTable extends StatelessWidget {
   }
 
   void _onLongPress(BuildContext context, int index) {
-    'onLongPress'.logPrint();
+
     if (context.dashboardCubit().contracts[index].mandoobName == null) {
       showDropDownDialog(context, ' title', (value) {
         context.dashboardCubit().updateMandoob(index, value!);

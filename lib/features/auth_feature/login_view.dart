@@ -21,151 +21,150 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state is LoginSuccess) {
-            if (state.role == AppRoles.admin) {
-              context.pushAndRemove(Routes.dashboard);
-            } else if (state.role == AppRoles.notAdmin) {
-              context.pushAndRemove(Routes.dashboardEmployee);
-            } else {
-              showToast('حدث خطأ برجاء المحاولة لاحقاً', ToastType.error);
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: BlocConsumer<LoginCubit, LoginState>(
+          listener: (context, state) {
+            if (state is LoginSuccess) {
+              if (state.role == AppRoles.admin) {
+                context.pushAndRemove(Routes.dashboard);
+              } else if (state.role == AppRoles.notAdmin) {
+                context.pushAndRemove(Routes.dashboardEmployee);
+              } else {
+                showToast('حدث خطأ برجاء المحاولة لاحقاً', ToastType.error);
+              }
+            } else if (state is LoginFailure) {
+              showToast('برجاء التاكد من كلمة السر و البريد الالكترونى',
+                  ToastType.error);
             }
-          } else if (state is LoginFailure) {
-            showToast('برجاء التاكد من كلمة السر و البريد الالكترونى',
-                ToastType.error);
-          }
-        },
-        builder: (context, state) {
-          return Form(
-            key: formKey,
-            child: Stack(
-              children: [
-                Container(
-                  width: context.width,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                        AppColors.enabyDark,
-                        AppColors.enabyLight,
-                      ])),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: context.width * 0.2,
-                      vertical: context.height * 0.2,
-                    ),
-                    child: Card(
-                      elevation: 200, // Elevation effect
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+          },
+          builder: (context, state) {
+            return Form(
+              key: formKey,
+              child: Stack(
+                children: [
+                  Container(
+                    width: context.width,
+                    height: context.height,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                          AppColors.enabyDark,
+                          AppColors.enabyLight,
+                        ])),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.width * 0.2,
+                        vertical: context.height * 0.2,
                       ),
-
-                      child: Container(
-                        width: context.width,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.sp)),
+                      child: Card(
+                        elevation: 50, // Elevation effect
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 100.w),
-                                child: Text(
+
+                        child: Container(
+                       
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.sp)),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 30.h, horizontal: 50.w),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
                                   'أهلا بك',
                                   style: Styles.style24,
                                 ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 100.w),
-                                child: Text(
+                                Text(
                                   'قم بتسجيل الدخول',
                                   style: Styles.style24,
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 40.h,
-                            ),
-                            SizedBox(
-                              width: 250.w,
-                              child: FormInputText(
-                                title: 'البريد الالكترونى',
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  size: 30.r,
+                                SizedBox(
+                                  height: 40.h,
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'برجاء ادخال البريد الالكترونى بشكل صحيح';
-                                  }
-                                },
-                                onSave: (value) {
-                                  context.loginCubit().userAuth.email =
-                                      value ?? '';
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            SizedBox(
-                              width: 250.w,
-                              child: FormInputPassword(
-                                title: 'كلمة المرور',
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  size: 30.r,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'برجاء ادخال كلمة المرور بشكل صحيح';
-                                  }
-                                },
-                                onSave: (value) {
-                                  context.loginCubit().userAuth.passowrd =
-                                      value ?? '';
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 40.h,
-                            ),
-                            state is LoginLoading
-                                ? Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColors.enabyDark,
+                                SizedBox(
+                                  width: 250.w,
+                                  child: FormInputText(
+                                    title: 'البريد الالكترونى',
+                                    prefixIcon: Icon(
+                                      Icons.person,
+                                      size: 30.r,
                                     ),
-                                  )
-                                : CustomButton(
-                                    title: 'دخول',
-                                    onTap: () {
-                                      context.loginCubit().login(formKey);
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'برجاء ادخال البريد الالكترونى بشكل صحيح';
+                                      }
+                                    },
+                                    onSave: (value) {
+                                      context.loginCubit().userAuth.email =
+                                          value ?? '';
                                     },
                                   ),
-                          ],
+                                ),
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                SizedBox(
+                                  width: 250.w,
+                                  child: FormInputPassword(
+                                    title: 'كلمة المرور',
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      size: 30.r,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'برجاء ادخال كلمة المرور بشكل صحيح';
+                                      }
+                                    },
+                                    onSave: (value) {
+                                      context.loginCubit().userAuth.passowrd =
+                                          value ?? '';
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 40.h,
+                                ),
+                                SizedBox(
+                                  width: 250.w,
+                                  child: state is LoginLoading
+                                      ? Center(
+                                          child: CircularProgressIndicator(
+                                            color: AppColors.enabyDark,
+                                          ),
+                                        )
+                                      : CustomButton(
+                                          title: 'دخول',
+                                          width: 250.w,
+                                          onTap: () {
+                                            context.loginCubit().login(formKey);
+                                          },
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
